@@ -1,6 +1,6 @@
 package com.fekim.tagdiary.service;
 
-import com.fekim.tagdiary.entity.Tag;
+import com.fekim.tagdiary.dto.TagDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +16,9 @@ public class TagServiceTests {
     @Transactional
     @Test
     public void testGetMod(){
-        Tag tag = tagService.getMostPopularTag("emotion");
+        TagDTO dto = tagService.getMostPopularTag("emotion");
 
-        System.out.println("-----------------------------tno = " + tag.getTno());
+        System.out.println("-----------------------------tno = " + dto);
 
     }
 

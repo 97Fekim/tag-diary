@@ -1,7 +1,7 @@
 package com.fekim.tagdiary.service;
 
+import com.fekim.tagdiary.dto.TagDTO;
 import com.fekim.tagdiary.entity.Tag;
-import com.fekim.tagdiary.entity.WriteUp;
 import com.fekim.tagdiary.repository.TagRepository;
 import com.fekim.tagdiary.repository.WriteUpRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class TagServiceImpl implements TagService{
     private final TagRepository tagRepository;
 
     @Override
-    public Tag getMostPopularTag(String tagType) {
+    public TagDTO getMostPopularTag(String tagType) {
 
         List<Long> list = writeUpRepository.getTnoListByTagType(tagType);
 
@@ -33,7 +33,7 @@ public class TagServiceImpl implements TagService{
         Optional<Tag> result = tagRepository.findById((long) targetTno);
 
         if(result.isPresent()){
-            return result.get();
+            return entityToDTO(result.get());
         }
 
         return null;
