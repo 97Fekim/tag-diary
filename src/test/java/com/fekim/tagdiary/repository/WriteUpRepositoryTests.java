@@ -1,13 +1,14 @@
 package com.fekim.tagdiary.repository;
 
 import com.fekim.tagdiary.entity.Diary;
-import com.fekim.tagdiary.entity.Member;
 import com.fekim.tagdiary.entity.Tag;
 import com.fekim.tagdiary.entity.WriteUp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -40,6 +41,15 @@ public class WriteUpRepositoryTests {
             repository.save(writeUp);
 
         });
+    }
+
+    //@Transactional
+    @Test
+    public void testGetTnoListByTagType(){
+
+        List<Long> result = repository.getTnoListByTagType("emotion");
+
+        System.out.println(result.toString());
 
     }
 

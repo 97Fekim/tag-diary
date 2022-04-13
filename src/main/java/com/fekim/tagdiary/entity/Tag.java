@@ -21,4 +21,6 @@ public class Tag extends BaseEntity{
 
     String tagName;
 
+    String tagType;
+
 }
