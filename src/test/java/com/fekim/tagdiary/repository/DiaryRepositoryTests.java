@@ -5,7 +5,13 @@ import com.fekim.tagdiary.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -52,5 +58,23 @@ public class DiaryRepositoryTests {
         });
 
     }
+
+    @Transactional
+    @Test
+    public void testGetList(){
+
+        //PageRequest pageRequest = PageRequest.of(0,10, Sort.by(Sort.Direction.DESC, "dno"));
+
+        List<Object> result = repository.getList("Romeo");
+
+        for(Object object : result){
+            Diary diary = (Diary) object;
+            System.out.println(diary.toString());
+            System.out.println(diary.getRegDate());
+            System.out.println(diary.getModDate());
+        }
+
+    }
+
 
 }
