@@ -16,7 +16,7 @@ public class TagServiceTests {
     @Transactional
     @Test
     public void testGetMod(){
-        Tag tag = tagService.getMod("emotion");
+        Tag tag = tagService.getMostPopularTag("emotion");
 
         System.out.println("-----------------------------tno = " + tag.getTno());
 

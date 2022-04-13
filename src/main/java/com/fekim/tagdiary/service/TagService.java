@@ -4,6 +4,6 @@ import com.fekim.tagdiary.entity.Tag;
 
 public interface TagService {
 
-    public Tag getMod(String tagType);
+    public Tag getMostPopularTag(String tagType);
 
 }

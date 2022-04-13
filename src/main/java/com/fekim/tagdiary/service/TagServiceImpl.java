@@ -20,7 +20,7 @@ public class TagServiceImpl implements TagService{
     private final TagRepository tagRepository;
 
     @Override
-    public Tag getMod(String tagType) {
+    public Tag getMostPopularTag(String tagType) {
 
         List<Long> list = writeUpRepository.getTnoListByTagType(tagType);
 
