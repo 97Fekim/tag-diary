@@ -13,12 +13,5 @@ public class WriteUpServiceTests {
     @Autowired
     private WriteUpService writeUpService;
 
-    @Transactional
-    @Test
-    public void testGetMod(){
-        Tag tag = writeUpService.getMod("emotion");
-
-        System.out.println(tag.toString());
-    }
 
 }
