@@ -16,6 +16,8 @@ public class Diary extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dno;
 
+    private String title;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Member writer;
 
