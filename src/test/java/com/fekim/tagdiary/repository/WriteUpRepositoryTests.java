@@ -23,10 +23,7 @@ public class WriteUpRepositoryTests {
         IntStream.rangeClosed(1,800).forEach(i -> {
 
             // 일기장 번호
-            Long dno = 0L;
-            while(dno < 403) {
-                dno = (long) (Math.random() * 802) + 1;
-            }
+            Long dno = (long) (Math.random() * 400) + 1;
 
             Long tno = (long)(Math.random() * 36) + 1;
 

@@ -18,7 +18,8 @@ public class TagServiceTests {
     public void testGetMod(){
         Tag tag = tagService.getMod("emotion");
 
-        System.out.println(tag.toString());
+        System.out.println("-----------------------------tno = " + tag.getTno());
+
     }
 
 }
