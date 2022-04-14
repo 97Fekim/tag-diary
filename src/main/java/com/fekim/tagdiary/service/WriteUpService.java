@@ -5,6 +5,4 @@ import com.fekim.tagdiary.entity.WriteUp;
 
 public interface WriteUpService {
 
-
-
 }
