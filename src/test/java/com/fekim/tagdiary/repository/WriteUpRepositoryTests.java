@@ -6,8 +6,10 @@ import com.fekim.tagdiary.entity.WriteUp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -48,6 +50,24 @@ public class WriteUpRepositoryTests {
 
         System.out.println(result.toString());
 
+    }
+
+    @Test
+    public void testGetListByDno(){
+
+        List<Object[]> result = repository.getListByDno(411L);
+
+        for(Object[] objects : result){
+            System.out.println(Arrays.toString(objects));
+        }
+
+    }
+
+    @Transactional
+    @Commit
+    @Test
+    public void testDeleteByWno(){
+        repository.deleteByWno(648L);
     }
 
 }

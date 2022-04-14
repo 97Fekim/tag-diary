@@ -63,18 +63,21 @@ public class DiaryRepositoryTests {
     @Test
     public void testGetList(){
 
-        //PageRequest pageRequest = PageRequest.of(0,10, Sort.by(Sort.Direction.DESC, "dno"));
+        PageRequest pageRequest = PageRequest.of(0,10, Sort.by(Sort.Direction.DESC, "dno"));
 
-        List<Object> result = repository.getList("Romeo");
+        Page<Diary> result = repository.getList(pageRequest, "Romeo");
 
-        for(Object object : result){
-            Diary diary = (Diary) object;
+        for(Diary d : result){
+            System.out.println(d.toString() + " " + d.getRegDate() + " " + d.getModDate());
+        }
+
+        /*for(Diary diary : result){
+            //Diary diary = (Diary) object;
             System.out.println(diary.toString());
             System.out.println(diary.getRegDate());
             System.out.println(diary.getModDate());
-        }
+        }*/
 
     }
-
 
 }

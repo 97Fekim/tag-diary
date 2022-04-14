@@ -15,9 +15,8 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     @Query("select d " +
             "from Diary d " +
             "left join d.writer w " +
-            "where w.id = :writer")
-    List<Object> getList(@Param("writer") String writer);
+            "where w.id = :writer " +
+            "group by d")
+    Page<Diary> getList(Pageable pageable, @Param("writer") String writer);
 
-    // dno로 특정 Diary 및 WriteUp까지 모두 조회
-    
 }
