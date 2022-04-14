@@ -10,6 +10,7 @@ public interface TagService {
     default TagDTO entityToDTO(Tag tag){
 
         TagDTO tagDTO = TagDTO.builder()
+                .tno(tag.getTno())
                 .name(tag.getTagName())
                 .type(tag.getTagType())
                 .build();

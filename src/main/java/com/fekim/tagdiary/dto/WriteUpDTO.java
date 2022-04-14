@@ -16,9 +16,7 @@ public class WriteUpDTO {
     /* WriteUp */
     private Long wno;
     private String content;
-    /* Tag */
-    private Long tno;
-    private String tagName;
-    private String tagType;
+
+    private TagDTO tagDTO;
 
 }

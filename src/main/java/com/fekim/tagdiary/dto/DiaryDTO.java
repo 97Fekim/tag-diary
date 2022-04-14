@@ -18,6 +18,8 @@ public class DiaryDTO {
 
     private String title;
 
+    private String writer;
+
     @Builder.Default
     private List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
 
