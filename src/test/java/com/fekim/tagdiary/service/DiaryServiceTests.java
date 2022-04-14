@@ -46,4 +46,19 @@ public class DiaryServiceTests {
         diaryService.removeDiaryWithWriteUps(403L);
     }
 
+    @Test
+    public void testRead(){
+        DiaryDTO dto = diaryService.read(195L);
+        System.out.println(dto.getDno());
+        System.out.println(dto.getTitle());
+        System.out.println(dto.getWriter());
+        System.out.println(dto.getModDate());
+        System.out.println(dto.getRegDate());
+
+        for(WriteUpDTO writeUpDTO : dto.getWriteUpDTOList()){
+            System.out.println(writeUpDTO);
+        }
+
+    }
+
 }

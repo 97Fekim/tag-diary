@@ -1,6 +1,7 @@
 package com.fekim.tagdiary.service;
 
 import com.fekim.tagdiary.dto.DiaryDTO;
+import com.fekim.tagdiary.dto.TagDTO;
 import com.fekim.tagdiary.dto.WriteUpDTO;
 import com.fekim.tagdiary.entity.Diary;
 import com.fekim.tagdiary.entity.Member;
@@ -20,7 +21,8 @@ public interface DiaryService {
     Long register(DiaryDTO diaryDTO);
     /* 일기 삭제 */
     void removeDiaryWithWriteUps(Long dno);
-    /* 일기 리스트 */
+    /* 일기 조회 */
+    DiaryDTO read(Long dno);
 
     /* DiaryDTO -> Diary
      * DiaryDTO가 WriteUp을 List로 참조하고 있기때문에
@@ -66,6 +68,57 @@ public interface DiaryService {
         }
 
         return entityMap;
+    }
+
+    /* 조회에 필요한 DiaryDTO로 변환하는 메서드
+    *  object[0] = Diary
+    *  object[1] = WriteUp
+    *  object[2] = Tag
+    * */
+    default DiaryDTO entityToDTO(List<Object[]> entity){
+
+        DiaryDTO diaryDTO = new DiaryDTO();
+
+        try{
+
+            Diary diary = (Diary) entity.get(entity.size() - 1)[0];
+            diaryDTO.setDno(diary.getDno());
+            diaryDTO.setTitle(diary.getTitle());
+            //diaryDTO.setWriter(diaryDTO.getWriter()); // 목록에서 회원이름을 가져올지 말지 미정
+            diaryDTO.setRegDate(diary.getRegDate());
+            diaryDTO.setModDate(diary.getModDate());
+
+        } catch (NullPointerException e) {
+
+            e.printStackTrace();
+            System.out.println("조회한 Diary는 존재하지 않습니다.");
+
+        }
+
+        for(Object[] objects : entity){
+
+            WriteUp writeUp = (WriteUp) objects[1];
+            Tag tag = (Tag) objects[2];
+
+            TagDTO tagDTO = TagDTO.builder()
+                    .tno(tag.getTno())
+                    .name(tag.getTagName())
+                    .type(tag.getTagType())
+                    .build();
+
+            WriteUpDTO writeUpDTO = WriteUpDTO.builder()
+                    .wno(writeUp.getWno())
+                    .dno(diaryDTO.getDno())
+                    .content(writeUp.getContent())
+                    .tagDTO(tagDTO)
+                    .build();
+
+            diaryDTO.getWriteUpDTOList().add(writeUpDTO);
+
+        }
+
+        return diaryDTO;
+
     }
 
 }

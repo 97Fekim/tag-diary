@@ -66,5 +66,10 @@ public class DiaryServiceImpl implements DiaryService{
         diaryRepository.deleteById(dno);
     }
 
+    @Override
+    public DiaryDTO read(Long dno) {
+        return entityToDTO(diaryRepository.getDiaryWithWritesUpAndTags(dno));
+    }
+
 
 }
