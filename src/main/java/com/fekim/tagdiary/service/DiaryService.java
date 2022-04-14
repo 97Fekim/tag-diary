@@ -6,6 +6,7 @@ import com.fekim.tagdiary.entity.Diary;
 import com.fekim.tagdiary.entity.Member;
 import com.fekim.tagdiary.entity.Tag;
 import com.fekim.tagdiary.entity.WriteUp;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +22,6 @@ public interface DiaryService {
     void removeDiaryWithWriteUps(Long dno);
     /* 일기 리스트 */
 
-    
-    
     /* DiaryDTO -> Diary
      * DiaryDTO가 WriteUp을 List로 참조하고 있기때문에
      * 반환타입을 Map<String, Object>으로 지정 */

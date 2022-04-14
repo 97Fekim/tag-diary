@@ -65,19 +65,21 @@ public class DiaryRepositoryTests {
 
         PageRequest pageRequest = PageRequest.of(0,10, Sort.by(Sort.Direction.DESC, "dno"));
 
-        Page<Diary> result = repository.getList(pageRequest, "Romeo");
+        Page<Object> result = repository.getList(pageRequest,"Romeo");
 
-        for(Diary d : result){
-            System.out.println(d.toString() + " " + d.getRegDate() + " " + d.getModDate());
+        for(Object arr : result){
+            System.out.println(arr.toString());
         }
+    }
 
-        /*for(Diary diary : result){
-            //Diary diary = (Diary) object;
-            System.out.println(diary.toString());
-            System.out.println(diary.getRegDate());
-            System.out.println(diary.getModDate());
-        }*/
+    @Transactional
+    @Test
+    public void testGetDiaryWithWritesUpAndTags(){
+        List<Object[]> result = repository.getDiaryWithWritesUpAndTags(195L);
 
+        for(Object[] objects : result){
+            System.out.println(Arrays.toString(objects));
+        }
     }
 
 }

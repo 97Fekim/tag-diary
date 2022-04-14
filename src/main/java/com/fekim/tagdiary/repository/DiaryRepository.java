@@ -12,11 +12,17 @@ import java.util.List;
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
     
     // 특정 회원의 모든 Diary 조회
+    @Query("select d, w, t " +
+            "from Diary d " +
+            "left join WriteUp w on w.diary = d " +
+            "left join Tag t on w.tag = t " +
+            "where d.dno = :dno")
+    List<Object[]> getDiaryWithWritesUpAndTags(@Param("dno") Long dno);
+
+    // 특정 회원의 모든 Diary 조회
     @Query("select d " +
             "from Diary d " +
-            "left join d.writer w " +
-            "where w.id = :writer " +
-            "group by d")
-    Page<Diary> getList(Pageable pageable, @Param("writer") String writer);
+            "where d.writer.id = :writer")
+    Page<Object> getList(Pageable pageable, @Param("writer") String writer);
 
 }
