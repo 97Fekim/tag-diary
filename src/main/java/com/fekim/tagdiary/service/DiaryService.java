@@ -35,6 +35,8 @@ public interface DiaryService {
                         .build())
                 .build();
 
+        entityMap.put("diary", diary);
+
         /* List<WriteUp> 처리 */
         List<WriteUpDTO> writeUpDTOList = diaryDTO.getWriteUpDTOList();
 
