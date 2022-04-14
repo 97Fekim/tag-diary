@@ -41,5 +41,9 @@ public class DiaryServiceTests {
         
     }
 
+    @Test
+    public void testRemoveDiary(){
+        diaryService.removeDiaryWithWriteUps(401L);
+    }
 
 }

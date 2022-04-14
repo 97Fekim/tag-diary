@@ -26,7 +26,14 @@ public interface WriteUpRepository extends JpaRepository<WriteUp, Long> {
             "where d.dno = :dno")
     List<Object[]> getListByDno(@Param("dno") Long dno);
 
+    /* wno로 WriteUp 하나 삭제 */
     @Modifying
     void deleteByWno(@Param("wno")Long wno);
+
+    /* Diary 하나에 있는 WriteUp 모두 삭제 */
+    @Modifying
+    @Query("delete from WriteUp w " +
+            "where w.diary.dno = :dno")
+    void deleteByDno(@Param("dno")Long dno);
 
 }

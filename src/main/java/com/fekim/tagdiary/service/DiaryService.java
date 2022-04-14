@@ -18,6 +18,9 @@ public interface DiaryService {
     // 일기 등록
     Long register(DiaryDTO diaryDTO);
 
+    // 일기 삭제
+    void removeDiaryWithWriteUps(Long dno);
+
     /* DiaryDTO -> Diary
      * DiaryDTO가 WriteUp을 List로 참조하고 있기때문에
      * 반환타입을 Map<String, Object>으로 지정 */

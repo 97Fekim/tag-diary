@@ -54,4 +54,15 @@ public class DiaryServiceImpl implements DiaryService{
 
         return diary.getDno();
     }
+
+    @Transactional
+    @Override   // Diary 하나 삭제
+    public void removeDiaryWithWriteUps(Long dno) {
+
+        /* 쿼리 메서드로 작성 */
+        // WriteUp들 부터 삭제
+        writeUpRepository.deleteByDno(dno);
+        // Diary 삭제
+        diaryRepository.deleteById(dno);
+    }
 }
