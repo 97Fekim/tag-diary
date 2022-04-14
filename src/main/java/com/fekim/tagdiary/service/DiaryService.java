@@ -15,12 +15,14 @@ import java.util.stream.Collectors;
 
 public interface DiaryService {
 
-    // 일기 등록
+    /* 일기 등록 */
     Long register(DiaryDTO diaryDTO);
-
-    // 일기 삭제
+    /* 일기 삭제 */
     void removeDiaryWithWriteUps(Long dno);
+    /* 일기 리스트 */
 
+    
+    
     /* DiaryDTO -> Diary
      * DiaryDTO가 WriteUp을 List로 참조하고 있기때문에
      * 반환타입을 Map<String, Object>으로 지정 */

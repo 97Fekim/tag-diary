@@ -65,4 +65,6 @@ public class DiaryServiceImpl implements DiaryService{
         // Diary 삭제
         diaryRepository.deleteById(dno);
     }
+
+
 }

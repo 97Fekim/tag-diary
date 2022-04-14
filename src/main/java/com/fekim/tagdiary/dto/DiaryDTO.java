@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class DiaryDTO {
     private String title;
 
     private String writer;
+
+    private LocalDateTime regDate;
+
+    private LocalDateTime modDate;
 
     @Builder.Default
     private List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
