@@ -1,13 +1,12 @@
 package com.fekim.tagdiary.service;
 
-import com.fekim.tagdiary.dto.DiaryDTO;
-import com.fekim.tagdiary.dto.TagDTO;
-import com.fekim.tagdiary.dto.WriteUpDTO;
+import com.fekim.tagdiary.dto.*;
 import com.fekim.tagdiary.entity.Diary;
 import com.fekim.tagdiary.entity.Member;
 import com.fekim.tagdiary.entity.Tag;
 import com.fekim.tagdiary.entity.WriteUp;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +22,8 @@ public interface DiaryService {
     void removeDiaryWithWriteUps(Long dno);
     /* 일기 조회 */
     DiaryDTO read(Long dno);
+    /* 일기 리스트 조회 */
+    PageResultDTO getListPage(PageRequestDTO pageRequestDTO, String writer);
 
     /* DiaryDTO -> Diary
      * DiaryDTO가 WriteUp을 List로 참조하고 있기때문에
@@ -119,6 +120,20 @@ public interface DiaryService {
 
         return diaryDTO;
 
+    }
+
+    default DiaryDTO entityToDTOForPage(Object entity){
+
+        Diary diary = (Diary) entity;
+
+        DiaryDTO diaryDTO = DiaryDTO.builder()
+                .dno(diary.getDno())
+                .title(diary.getTitle())
+                .regDate(diary.getRegDate())
+                .modDate(diary.getModDate())
+                .build();
+
+        return diaryDTO;
     }
 
 }

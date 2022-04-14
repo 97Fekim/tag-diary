@@ -1,6 +1,8 @@
 package com.fekim.tagdiary.service;
 
 import com.fekim.tagdiary.dto.DiaryDTO;
+import com.fekim.tagdiary.dto.PageRequestDTO;
+import com.fekim.tagdiary.dto.PageResultDTO;
 import com.fekim.tagdiary.dto.WriteUpDTO;
 import com.fekim.tagdiary.entity.Diary;
 import com.fekim.tagdiary.entity.WriteUp;
@@ -9,9 +11,14 @@ import com.fekim.tagdiary.repository.TagRepository;
 import com.fekim.tagdiary.repository.WriteUpRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,5 +78,29 @@ public class DiaryServiceImpl implements DiaryService{
         return entityToDTO(diaryRepository.getDiaryWithWritesUpAndTags(dno));
     }
 
+    @Override
+    public PageResultDTO getListPage(PageRequestDTO pageRequestDTO, String writer) {
+
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("dno").descending());
+
+        List<DiaryDTO> diaryDTOList = new ArrayList<>();
+
+        Page<Object> result = diaryRepository.getList(pageable, writer);
+
+        int totalPages = result.getTotalPages();
+
+        for(Object object : result){
+
+            DiaryDTO diaryDTO = entityToDTOForPage(object);
+
+            diaryDTO.setWriter(writer);
+
+            diaryDTOList.add(diaryDTO);
+
+        }
+
+        return new PageResultDTO(diaryDTOList, totalPages);
+
+    }
 
 }

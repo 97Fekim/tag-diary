@@ -1,8 +1,6 @@
 package com.fekim.tagdiary.service;
 
-import com.fekim.tagdiary.dto.DiaryDTO;
-import com.fekim.tagdiary.dto.TagDTO;
-import com.fekim.tagdiary.dto.WriteUpDTO;
+import com.fekim.tagdiary.dto.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,6 +56,17 @@ public class DiaryServiceTests {
         for(WriteUpDTO writeUpDTO : dto.getWriteUpDTOList()){
             System.out.println(writeUpDTO);
         }
+
+    }
+
+    @Test
+    public void testGetList(){
+        PageResultDTO pageResultDTO = diaryService.getListPage(new PageRequestDTO(), "Romeo");
+
+        for(DiaryDTO diaryDTO : pageResultDTO.getDtoList()){
+            System.out.println(diaryDTO);
+        }
+        System.out.println(pageResultDTO);
 
     }
 
