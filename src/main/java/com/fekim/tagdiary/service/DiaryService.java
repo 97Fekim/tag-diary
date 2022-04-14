@@ -27,7 +27,6 @@ public interface DiaryService {
 
         /* Diary 처리 (엔티티 Diary생성) */
         Diary diary = Diary.builder()
-                .dno(diaryDTO.getDno())
                 .title(diaryDTO.getTitle())
                 .writer(Member.builder()
                         .id(diaryDTO
@@ -46,8 +45,8 @@ public interface DiaryService {
             List<WriteUp> writeUpList = writeUpDTOList.stream().map(writeUpDTO -> {
 
                 WriteUp writeUp = WriteUp.builder()
-                        .wno(writeUpDTO.getWno())
                         .content(writeUpDTO.getContent())
+                        .diary(Diary.builder().dno(writeUpDTO.getDno()).build())
                         .tag(Tag.builder()
                                 .tno(writeUpDTO.getTagDTO().getTno())
                                 .tagName(writeUpDTO.getTagDTO().getName())

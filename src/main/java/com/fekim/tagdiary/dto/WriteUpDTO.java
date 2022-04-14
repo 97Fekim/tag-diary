@@ -1,5 +1,6 @@
 package com.fekim.tagdiary.dto;
 
+import com.fekim.tagdiary.entity.Diary;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,10 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 public class WriteUpDTO {
 
-    /* WriteUp */
     private Long wno;
+    private Long dno;
     private String content;
-
     private TagDTO tagDTO;
 
 }

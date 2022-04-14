@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -29,13 +31,21 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public Long register(DiaryDTO diaryDTO) {
-        HashMap<String, Object> entityMap = new HashMap<>();
+        Map<String, Object> entityMap = dtoToEntity(diaryDTO);
 
         Diary diary = (Diary) entityMap.get("diary");   // Object -> Diary
 
-        List<WriteUp> writeUpList = (List<WriteUp>) entityMap.get("writeUpList");   // Object -> List
+        Diary saved = diaryRepository.save(diary);// Diary 먼저 저장
 
-        diaryRepository.save(diary);    // Diary 먼저 저장
+        /* Diary를 저장하면서 얻어온 dno를 diaryDTO의 dno에 저장 */
+        for(WriteUpDTO writeUpDTO : diaryDTO.getWriteUpDTOList()){
+            writeUpDTO.setDno(saved.getDno());
+        }
+
+        // 다시 dto->entity
+        entityMap = dtoToEntity(diaryDTO);
+
+        List<WriteUp> writeUpList = (List<WriteUp>) entityMap.get("writeUpList");   // Object -> List
 
         writeUpList.stream().forEach(writeUp -> {
             tagRepository.save(writeUp.getTag());   // Tag 먼저 저장
