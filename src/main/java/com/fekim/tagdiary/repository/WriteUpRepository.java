@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface WriteUpRepository extends JpaRepository<WriteUp, Long> {
 
+    /* 가장 인기있는 태그를 구하기 위해
+    * 일단 실행되는 메서드입니다. (모든 tno 조회) */
     @Query("select t.tno " +
             "from WriteUp w " +
             "left join w.tag t " +

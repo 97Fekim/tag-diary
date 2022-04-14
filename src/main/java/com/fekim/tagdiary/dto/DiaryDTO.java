@@ -5,20 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WriteUpDTO {
+public class DiaryDTO {
 
-    /* WriteUp */
-    private Long wno;
-    private String content;
-    /* Tag */
-    private Long tno;
-    private String tagName;
-    private String tagType;
+    private Long dno;
+
+    private String title;
+
+    @Builder.Default
+    private List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
 
 }
