@@ -22,11 +22,12 @@ public class WriteUpRepositoryTests {
     @Test
     public void testInsertDummies(){
 
-        IntStream.rangeClosed(1,800).forEach(i -> {
+        IntStream.rangeClosed(1600,2400).forEach(i -> {
 
             // 일기장 번호
             Long dno = (long) (Math.random() * 400) + 1;
 
+            // 태그 번호
             Long tno = (long)(Math.random() * 36) + 1;
 
             Diary diary = Diary.builder().dno(dno).build();

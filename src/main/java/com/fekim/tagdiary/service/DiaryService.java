@@ -24,7 +24,7 @@ public interface DiaryService {
     DiaryDTO read(Long dno);
     /* 일기 리스트 조회 */
     PageResultDTO getListPage(PageRequestDTO pageRequestDTO, String writer);
-
+    /* 일기 수정 */
     void modify(DiaryDTO diaryDTO);
 
     /* DiaryDTO -> Diary
