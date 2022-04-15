@@ -15,13 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -100,6 +98,48 @@ public class DiaryServiceImpl implements DiaryService{
         }
 
         return new PageResultDTO(diaryDTOList, totalPages);
+
+    }
+
+    @Override
+    @Transactional
+    public void modify(DiaryDTO diaryDTO) {
+
+        // DTO -> Entity
+        Diary diary = (Diary) dtoToEntity(diaryDTO).get("diary");
+        List<WriteUp> writeUpList = (List<WriteUp>) dtoToEntity(diaryDTO).get("writeUpList");
+
+        // 1. dno를 참조하는 모든 WriteUp을 삭제한다
+        writeUpRepository.deleteByDno(diary.getDno());
+
+        log.info("=================diary delete completely===========");
+
+        // 2. Diary의 제목을 바꾼 후, 수정(save)한다.
+        Optional<Diary> origin = diaryRepository.findById(diary.getDno());
+
+        if(origin.isPresent()){
+
+            Diary modified = origin.get();
+
+            modified.changeTitle(diary.getTitle());
+
+            log.info("========================dno of diary : " + modified.getDno());
+
+            diaryRepository.save(modified);
+
+            log.info("=================diary modified completely===========");
+        }
+
+        // 3. DiaryDTO에 들어있는 모든 WriteUp을 저장한다.
+        for(WriteUp writeUp : writeUpList){
+
+            log.info("========================dno of writeUp : " + writeUp.getDiary().getDno());
+            log.info("========================tno of writeUp : " + writeUp.getTag().getTno());
+
+            writeUpRepository.save(writeUp);
+
+        }
+        log.info("====================save writeUp completely===============");
 
     }
 

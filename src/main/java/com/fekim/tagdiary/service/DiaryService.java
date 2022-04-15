@@ -25,6 +25,8 @@ public interface DiaryService {
     /* 일기 리스트 조회 */
     PageResultDTO getListPage(PageRequestDTO pageRequestDTO, String writer);
 
+    void modify(DiaryDTO diaryDTO);
+
     /* DiaryDTO -> Diary
      * DiaryDTO가 WriteUp을 List로 참조하고 있기때문에
      * 반환타입을 Map<String, Object>으로 지정 */
@@ -34,6 +36,7 @@ public interface DiaryService {
 
         /* Diary 처리 (엔티티 Diary생성) */
         Diary diary = Diary.builder()
+                .dno(diaryDTO.getDno())
                 .title(diaryDTO.getTitle())
                 .writer(Member.builder()
                         .id(diaryDTO
@@ -53,7 +56,7 @@ public interface DiaryService {
 
                 WriteUp writeUp = WriteUp.builder()
                         .content(writeUpDTO.getContent())
-                        .diary(Diary.builder().dno(writeUpDTO.getDno()).build())
+                        .diary(Diary.builder().dno(diaryDTO.getDno()).build())  // writeUp에 추가될 dno는 Diary에서 가져와야 한다.
                         .tag(Tag.builder()
                                 .tno(writeUpDTO.getTagDTO().getTno())
                                 .tagName(writeUpDTO.getTagDTO().getName())

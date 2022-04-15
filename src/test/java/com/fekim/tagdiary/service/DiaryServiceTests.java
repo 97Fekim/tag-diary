@@ -70,4 +70,35 @@ public class DiaryServiceTests {
 
     }
 
+    @Test
+    public void testModify(){
+        List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
+
+        writeUpDTOList.add(WriteUpDTO.builder()
+                .content("수정 테스트 내용1")
+                .tagDTO(TagDTO.builder().tno(5L).name("감격").type("emotion").build())
+                .build());
+
+        writeUpDTOList.add(WriteUpDTO.builder()
+                .content("수정 테스트 내용2")
+                .tagDTO(TagDTO.builder().tno(6L).name("감사").type("emotion").build())
+                .build());
+
+        writeUpDTOList.add(WriteUpDTO.builder()
+                .content("수정 테스트 내용3")
+                .tagDTO(TagDTO.builder().tno(12L).name("기대").type("emotion").build())
+                .build());
+
+        DiaryDTO diaryDTO = DiaryDTO.builder()
+                .dno(150L)
+                .title("수정 테스트 제목1")
+                .writer("Romeo")
+                .writeUpDTOList(writeUpDTOList)
+                .build();
+
+        diaryService.modify(diaryDTO);
+
+
+    }
+
 }
