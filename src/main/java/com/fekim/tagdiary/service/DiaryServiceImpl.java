@@ -42,6 +42,7 @@ public class DiaryServiceImpl implements DiaryService{
 
         /* Diary를 저장하면서 얻어온 dno를 diaryDTO의 dno에 저장 */
         for(WriteUpDTO writeUpDTO : diaryDTO.getWriteUpDTOList()){
+            log.info("============saved dno : " + saved.getDno());
             writeUpDTO.setDno(saved.getDno());
         }
 
@@ -50,7 +51,10 @@ public class DiaryServiceImpl implements DiaryService{
 
         List<WriteUp> writeUpList = (List<WriteUp>) entityMap.get("writeUpList");   // Object -> List
 
+
         writeUpList.stream().forEach(writeUp -> {
+            log.info("==============dno : " + writeUp.getDiary().getDno());
+            log.info("==============tno : " + writeUp.getTag().getTno());
             tagRepository.save(writeUp.getTag());   // Tag 먼저 저장
             writeUpRepository.save(writeUp);
         });

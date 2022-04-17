@@ -28,4 +28,11 @@ public class DiaryDTO {
     @Builder.Default
     private List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
 
+    public DiaryDTO(Long dno, String title, String writer, List<WriteUpDTO> writeUpDTOList){
+        this.dno = dno;
+        this.title = title;
+        this.writer = writer;
+        this.writeUpDTOList = writeUpDTOList;
+    }
+
 }

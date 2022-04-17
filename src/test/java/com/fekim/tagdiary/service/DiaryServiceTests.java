@@ -20,8 +20,8 @@ public class DiaryServiceTests {
         List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
 
         writeUpDTOList.add(WriteUpDTO.builder()
-                        .content("등록 테스트 내용5")
-                        .tagDTO(TagDTO.builder().tno(5L).name("감격").build())
+                .content("등록 테스트 내용5")
+                .tagDTO(TagDTO.builder().tno(5L).name("감격").type("emotion").build())
                 .build());
 
         writeUpDTOList.add(WriteUpDTO.builder()
@@ -63,11 +63,7 @@ public class DiaryServiceTests {
     public void testGetList(){
 
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
-        pageRequestDTO.setPage(4);
-        pageRequestDTO.setSize(15);
         pageRequestDTO.setWriter("Romeo");
-        pageRequestDTO.setType("diaryTitle");
-        pageRequestDTO.setKeyword("2");
 
         PageResultDTO pageResultDTO = diaryService.getListPage(pageRequestDTO);
 
@@ -98,7 +94,7 @@ public class DiaryServiceTests {
                 .build());
 
         DiaryDTO diaryDTO = DiaryDTO.builder()
-                .dno(150L)
+                .dno(199L)
                 .title("수정 테스트 제목1")
                 .writer("Romeo")
                 .writeUpDTOList(writeUpDTOList)
