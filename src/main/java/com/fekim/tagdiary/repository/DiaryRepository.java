@@ -1,6 +1,7 @@
 package com.fekim.tagdiary.repository;
 
 import com.fekim.tagdiary.entity.Diary;
+import com.fekim.tagdiary.repository.search.SearchDiaryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,9 +10,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface DiaryRepository extends JpaRepository<Diary, Long> {
+public interface DiaryRepository extends JpaRepository<Diary, Long>, SearchDiaryRepository {
     
-    // 특정 회원의 모든 Diary 조회
+    // 특정 dno 조회
     @Query("select d, w, t " +
             "from Diary d " +
             "left join WriteUp w on w.diary = d " +

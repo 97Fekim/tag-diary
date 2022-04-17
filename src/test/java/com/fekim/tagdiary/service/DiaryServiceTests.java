@@ -61,7 +61,15 @@ public class DiaryServiceTests {
 
     @Test
     public void testGetList(){
-        PageResultDTO pageResultDTO = diaryService.getListPage(new PageRequestDTO(), "Romeo");
+
+        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+        pageRequestDTO.setPage(4);
+        pageRequestDTO.setSize(15);
+        pageRequestDTO.setWriter("Romeo");
+        pageRequestDTO.setType("diaryTitle");
+        pageRequestDTO.setKeyword("2");
+
+        PageResultDTO pageResultDTO = diaryService.getListPage(pageRequestDTO);
 
         for(DiaryDTO diaryDTO : pageResultDTO.getDtoList()){
             System.out.println(diaryDTO);

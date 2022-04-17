@@ -5,7 +5,7 @@ import com.fekim.tagdiary.entity.Tag;
 
 public interface TagService {
 
-    public TagDTO getMostPopularTag(String tagType);
+    TagDTO getMostPopularTag(String tagType);
 
     default TagDTO entityToDTO(Tag tag){
 

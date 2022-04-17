@@ -75,25 +75,28 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public PageResultDTO getListPage(PageRequestDTO pageRequestDTO, String writer) {
+    public PageResultDTO getListPage(PageRequestDTO pageRequestDTO) {
 
         Pageable pageable = pageRequestDTO.getPageable(Sort.by("dno").descending());
 
         List<DiaryDTO> diaryDTOList = new ArrayList<>();
 
-        Page<Object> result = diaryRepository.getList(pageable, writer);
+        Page<Diary> result = diaryRepository.searchPage(
+                pageRequestDTO.getType(),
+                pageRequestDTO.getKeyword(),
+                pageRequestDTO.getWriter(),
+                pageable
+        );
 
         int totalPages = result.getTotalPages();
 
-        for(Object object : result){
-
-            Diary diary = (Diary) object;
+        for(Diary diary : result){
 
             DiaryDTO diaryDTO = new DiaryDTO();
 
             diaryDTO.setDno(diary.getDno());
             diaryDTO.setTitle(diary.getTitle());
-            diaryDTO.setWriter(writer);
+            diaryDTO.setWriter(pageRequestDTO.getWriter());
             diaryDTO.setModDate(diary.getModDate());
             diaryDTO.setRegDate(diary.getRegDate());
 

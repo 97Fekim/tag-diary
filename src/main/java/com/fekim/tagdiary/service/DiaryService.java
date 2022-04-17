@@ -23,7 +23,7 @@ public interface DiaryService {
     /* 일기 조회 */
     DiaryDTO read(Long dno);
     /* 일기 리스트 조회 */
-    PageResultDTO getListPage(PageRequestDTO pageRequestDTO, String writer);
+    PageResultDTO getListPage(PageRequestDTO pageRequestDTO);
     /* 일기 수정 */
     void modify(DiaryDTO diaryDTO);
 

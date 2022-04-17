@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
@@ -80,6 +81,20 @@ public class DiaryRepositoryTests {
         for(Object[] objects : result){
             System.out.println(Arrays.toString(objects));
         }
+    }
+
+    @Test
+    public void testSearchPage(){
+
+        Pageable pageable = PageRequest.of(0,10,
+                Sort.by("dno").descending());
+
+        Page<Diary> result = repository.searchPage("tagName", "절망","Romeo", pageable);
+
+        for (Diary diary : result.toList()){
+            System.out.println(diary);
+        }
+
     }
 
 }
