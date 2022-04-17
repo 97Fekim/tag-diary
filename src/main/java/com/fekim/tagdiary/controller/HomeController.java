@@ -8,23 +8,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @Controller
-@RequestMapping("/diary/")
 @RequiredArgsConstructor
-public class DiaryController {
+public class HomeController {
 
     private final TagService tagService;
 
-    @GetMapping("/home")
-    public void home(Model model){
+    @GetMapping("/")
+    public String home(Model model){
 
         TagDTO tagDTO = tagService.getMostPopularTag("emotion");
 
         model.addAttribute("tagDTO", tagDTO);
 
-
-
+        return "home";
     }
+
 }
