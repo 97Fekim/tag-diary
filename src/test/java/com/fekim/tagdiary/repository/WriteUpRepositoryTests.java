@@ -22,7 +22,7 @@ public class WriteUpRepositoryTests {
     @Test
     public void testInsertDummies(){
 
-        IntStream.rangeClosed(1600,2400).forEach(i -> {
+        IntStream.rangeClosed(1,2400).forEach(i -> {
 
             // 일기장 번호
             Long dno = (long) (Math.random() * 400) + 1;
@@ -56,7 +56,7 @@ public class WriteUpRepositoryTests {
     @Test
     public void testGetListByDno(){
 
-        List<Object[]> result = repository.getListByDno(411L);
+        List<Object[]> result = repository.getListByDno(195L);
 
         for(Object[] objects : result){
             System.out.println(Arrays.toString(objects));

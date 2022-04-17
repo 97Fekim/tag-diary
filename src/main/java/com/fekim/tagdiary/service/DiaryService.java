@@ -124,19 +124,4 @@ public interface DiaryService {
         return diaryDTO;
 
     }
-
-    default DiaryDTO entityToDTOForPage(Object entity){
-
-        Diary diary = (Diary) entity;
-
-        DiaryDTO diaryDTO = DiaryDTO.builder()
-                .dno(diary.getDno())
-                .title(diary.getTitle())
-                .regDate(diary.getRegDate())
-                .modDate(diary.getModDate())
-                .build();
-
-        return diaryDTO;
-    }
-
 }

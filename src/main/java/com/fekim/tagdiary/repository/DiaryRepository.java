@@ -25,4 +25,5 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
             "where d.writer.id = :writer")
     Page<Object> getList(Pageable pageable, @Param("writer") String writer);
 
+
 }

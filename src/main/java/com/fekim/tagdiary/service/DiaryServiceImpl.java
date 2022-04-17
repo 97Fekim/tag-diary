@@ -1,10 +1,8 @@
 package com.fekim.tagdiary.service;
 
-import com.fekim.tagdiary.dto.DiaryDTO;
-import com.fekim.tagdiary.dto.PageRequestDTO;
-import com.fekim.tagdiary.dto.PageResultDTO;
-import com.fekim.tagdiary.dto.WriteUpDTO;
+import com.fekim.tagdiary.dto.*;
 import com.fekim.tagdiary.entity.Diary;
+import com.fekim.tagdiary.entity.Tag;
 import com.fekim.tagdiary.entity.WriteUp;
 import com.fekim.tagdiary.repository.DiaryRepository;
 import com.fekim.tagdiary.repository.TagRepository;
@@ -22,8 +20,8 @@ import javax.transaction.Transactional;
 import java.util.*;
 
 
-@Service
 @Log4j2
+@Service
 @RequiredArgsConstructor
 public class DiaryServiceImpl implements DiaryService{
 
@@ -89,9 +87,42 @@ public class DiaryServiceImpl implements DiaryService{
 
         for(Object object : result){
 
-            DiaryDTO diaryDTO = entityToDTOForPage(object);
+            Diary diary = (Diary) object;
 
+            DiaryDTO diaryDTO = new DiaryDTO();
+
+            diaryDTO.setDno(diary.getDno());
+            diaryDTO.setTitle(diary.getTitle());
             diaryDTO.setWriter(writer);
+            diaryDTO.setModDate(diary.getModDate());
+            diaryDTO.setRegDate(diary.getRegDate());
+
+            // 여기서부터 WriteUpList 추가
+            List<Object[]> writeUpList = writeUpRepository.getListByDno(diary.getDno());
+
+            List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
+
+            // object[0] : WriteUp
+            // object[1] : Tag
+            for(Object[] objects : writeUpList){
+                WriteUp writeUp = (WriteUp)objects[0];
+                Tag tag = (Tag) objects[1];
+
+                WriteUpDTO writeUpDTO = WriteUpDTO.builder()
+                        .wno(writeUp.getWno())
+                        .dno(diary.getDno())
+                        .content(writeUp.getContent())
+                        .tagDTO(TagDTO.builder()
+                                .tno(tag.getTno())
+                                .name(tag.getTagName())
+                                .type(tag.getTagType())
+                                .build())
+                        .build();
+
+                writeUpDTOList.add(writeUpDTO);
+            }
+
+            diaryDTO.setWriteUpDTOList(writeUpDTOList);
 
             diaryDTOList.add(diaryDTO);
 
