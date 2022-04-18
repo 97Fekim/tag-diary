@@ -41,10 +41,7 @@ public class DiaryServiceImpl implements DiaryService{
         Diary saved = diaryRepository.save(diary);// Diary 먼저 저장
 
         /* Diary를 저장하면서 얻어온 dno를 diaryDTO의 dno에 저장 */
-        for(WriteUpDTO writeUpDTO : diaryDTO.getWriteUpDTOList()){
-            log.info("============saved dno : " + saved.getDno());
-            writeUpDTO.setDno(saved.getDno());
-        }
+        diaryDTO.setDno(saved.getDno());
 
         // 다시 dto->entity
         entityMap = dtoToEntity(diaryDTO);

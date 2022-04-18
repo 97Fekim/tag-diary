@@ -56,7 +56,7 @@ public interface DiaryService {
 
                 WriteUp writeUp = WriteUp.builder()
                         .content(writeUpDTO.getContent())
-                        .diary(Diary.builder().dno(writeUpDTO.getDno()).build())  // writeUp에 추가될 dno는 Diary에서 가져와야 한다.
+                        .diary(Diary.builder().dno(diaryDTO.getDno()).build())  // writeUp에 추가될 dno는 Diary에서 가져와야 한다.
                         .tag(Tag.builder()
                                 .tno(writeUpDTO.getTagDTO().getTno())
                                 .tagName(writeUpDTO.getTagDTO().getName())
