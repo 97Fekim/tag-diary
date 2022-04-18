@@ -66,7 +66,7 @@ public class DiaryRepositoryTests {
 
         PageRequest pageRequest = PageRequest.of(0,10, Sort.by(Sort.Direction.DESC, "dno"));
 
-        Page<Object> result = repository.getList(pageRequest,"Romeo");
+        Page<Object> result = repository.getList(pageRequest,1L);
 
         for(Object arr : result){
             System.out.println(arr.toString());
@@ -89,7 +89,7 @@ public class DiaryRepositoryTests {
         Pageable pageable = PageRequest.of(0,10,
                 Sort.by("dno").descending());
 
-        Page<Diary> result = repository.searchPage("tagName", "절망",1L, pageable);
+        Page<Diary> result = repository.searchPage("diaryTitle", "25",1L, pageable);
 
         for (Diary diary : result.toList()){
             System.out.println(diary);

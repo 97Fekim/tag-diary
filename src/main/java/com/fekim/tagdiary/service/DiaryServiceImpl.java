@@ -132,7 +132,11 @@ public class DiaryServiceImpl implements DiaryService{
 
         }
 
-        return new PageResultDTO(diaryDTOList, totalPages);
+        PageResultDTO pageResultDTO = new PageResultDTO(diaryDTOList, totalPages);
+
+        pageResultDTO.makePageList(pageable);
+
+        return pageResultDTO;
 
     }
 

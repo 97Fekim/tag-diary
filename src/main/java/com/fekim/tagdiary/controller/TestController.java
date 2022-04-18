@@ -45,11 +45,11 @@ public class TestController {
     }
 
     @GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PageResultDTO> getList(String writer){
+    public ResponseEntity<PageResultDTO> getList(Long writerId){
         log.info("================getList===============");
-        log.info(writer);
+        log.info(writerId);
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
-        pageRequestDTO.setWriterId(1L);
+        pageRequestDTO.setWriterId(writerId);
         return new ResponseEntity<>(diaryService.getListPage(pageRequestDTO), HttpStatus.OK);
     }
 

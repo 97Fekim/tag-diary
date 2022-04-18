@@ -45,6 +45,8 @@ public class HomeController {
 
         model.addAttribute("result", pageResultDTO);
 
+        log.info(authMemberDTO);
+
         return "list";
     }
 

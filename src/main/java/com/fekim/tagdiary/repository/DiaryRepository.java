@@ -23,8 +23,8 @@ public interface DiaryRepository extends JpaRepository<Diary, Long>, SearchDiary
     // 특정 회원의 모든 Diary 조회
     @Query("select d " +
             "from Diary d " +
-            "where d.writer.id = :writer")
-    Page<Object> getList(Pageable pageable, @Param("writer") String writer);
+            "where d.writer.id = :writerId")
+    Page<Object> getList(Pageable pageable, @Param("writerId") Long writerId);
 
 
 }
