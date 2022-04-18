@@ -1,8 +1,8 @@
 package com.fekim.tagdiary.security;
 
-import com.fekim.tagdiary.entity.Member;
-import com.fekim.tagdiary.entity.MemberRole;
-import com.fekim.tagdiary.repository.MemberRepository;
+import com.fekim.tagdiary.member.domain.Member;
+import com.fekim.tagdiary.member.domain.MemberRole;
+import com.fekim.tagdiary.member.domain.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

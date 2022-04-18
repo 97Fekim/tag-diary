@@ -1,11 +1,8 @@
 package com.fekim.tagdiary.service;
 
-import com.fekim.tagdiary.entity.Tag;
-import org.junit.jupiter.api.Test;
+import com.fekim.tagdiary.writeup.service.WriteUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
 
 @SpringBootTest
 public class WriteUpServiceTests {

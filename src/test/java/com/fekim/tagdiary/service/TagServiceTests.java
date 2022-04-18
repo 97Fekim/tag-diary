@@ -1,6 +1,7 @@
 package com.fekim.tagdiary.service;
 
-import com.fekim.tagdiary.dto.TagDTO;
+import com.fekim.tagdiary.tag.dto.TagDTO;
+import com.fekim.tagdiary.tag.service.TagService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

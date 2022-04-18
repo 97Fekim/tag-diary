@@ -1,22 +1,18 @@
 package com.fekim.tagdiary.controller;
 
-import com.fekim.tagdiary.dto.DiaryDTO;
-import com.fekim.tagdiary.dto.PageRequestDTO;
-import com.fekim.tagdiary.dto.PageResultDTO;
-import com.fekim.tagdiary.dto.TagDTO;
-import com.fekim.tagdiary.entity.Diary;
-import com.fekim.tagdiary.service.DiaryService;
-import com.fekim.tagdiary.service.TagService;
+import com.fekim.tagdiary.diary.dto.DiaryDTO;
+import com.fekim.tagdiary.diary.dto.PageRequestDTO;
+import com.fekim.tagdiary.diary.dto.PageResultDTO;
+import com.fekim.tagdiary.tag.dto.TagDTO;
+import com.fekim.tagdiary.diary.service.DiaryService;
+import com.fekim.tagdiary.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
-import java.util.Date;
 
 @Log4j2
 @RestController()
@@ -44,6 +40,7 @@ public class TestController {
         return new ResponseEntity<>(num, HttpStatus.OK);
     }
 
+    //@PreAuthorize("hasRole('USER')")  // USER만 접근할 수 있는 요청
     @GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResultDTO> getList(Long writerId){
         log.info("================getList===============");

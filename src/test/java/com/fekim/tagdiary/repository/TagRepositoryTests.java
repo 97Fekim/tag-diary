@@ -1,11 +1,10 @@
 package com.fekim.tagdiary.repository;
 
-import com.fekim.tagdiary.entity.Tag;
+import com.fekim.tagdiary.tag.domain.Tag;
+import com.fekim.tagdiary.tag.domain.TagRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 public class TagRepositoryTests {

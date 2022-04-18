@@ -1,8 +1,9 @@
 package com.fekim.tagdiary.repository;
 
-import com.fekim.tagdiary.entity.Diary;
-import com.fekim.tagdiary.entity.Tag;
-import com.fekim.tagdiary.entity.WriteUp;
+import com.fekim.tagdiary.diary.domain.Diary;
+import com.fekim.tagdiary.tag.domain.Tag;
+import com.fekim.tagdiary.writeup.domain.WriteUp;
+import com.fekim.tagdiary.writeup.domain.WriteUpRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
