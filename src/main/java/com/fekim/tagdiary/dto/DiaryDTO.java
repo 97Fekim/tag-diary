@@ -19,7 +19,7 @@ public class DiaryDTO {
 
     private String title;
 
-    private String writer;
+    private Long writerId;
 
     private LocalDateTime regDate;
 
@@ -28,10 +28,10 @@ public class DiaryDTO {
     @Builder.Default
     private List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
 
-    public DiaryDTO(Long dno, String title, String writer, List<WriteUpDTO> writeUpDTOList){
+    public DiaryDTO(Long dno, String title, Long writerId, List<WriteUpDTO> writeUpDTOList){
         this.dno = dno;
         this.title = title;
-        this.writer = writer;
+        this.writerId = writerId;
         this.writeUpDTOList = writeUpDTOList;
     }
 

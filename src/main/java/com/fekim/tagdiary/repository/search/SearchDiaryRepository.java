@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface SearchDiaryRepository {
 
-    Page<Diary> searchPage(String type, String keyword, String writer, Pageable pageable);
+    Page<Diary> searchPage(String type, String keyword, Long writerId, Pageable pageable);
 
 }

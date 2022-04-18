@@ -39,8 +39,7 @@ public interface DiaryService {
                 .dno(diaryDTO.getDno())
                 .title(diaryDTO.getTitle())
                 .writer(Member.builder()
-                        .id(diaryDTO
-                        .getWriter())
+                        .id(diaryDTO.getWriterId())
                         .build())
                 .build();
 
@@ -88,7 +87,7 @@ public interface DiaryService {
             Diary diary = (Diary) entity.get(entity.size() - 1)[0];
             diaryDTO.setDno(diary.getDno());
             diaryDTO.setTitle(diary.getTitle());
-            diaryDTO.setWriter(diary.getWriter().getId()); // 목록에서 회원이름을 가져올지 말지 미정
+            diaryDTO.setWriterId(diary.getWriter().getId()); // 목록에서 회원이름을 가져올지 말지 미정
             diaryDTO.setRegDate(diary.getRegDate());
             diaryDTO.setModDate(diary.getModDate());
 

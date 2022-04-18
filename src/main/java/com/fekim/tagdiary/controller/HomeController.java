@@ -39,7 +39,7 @@ public class HomeController {
 
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
 
-        pageRequestDTO.setWriter(authMemberDTO.getId());
+        pageRequestDTO.setWriterId(authMemberDTO.getId());
 
         PageResultDTO pageResultDTO = diaryService.getListPage(pageRequestDTO);
 

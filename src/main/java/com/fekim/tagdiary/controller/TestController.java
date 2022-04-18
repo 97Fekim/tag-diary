@@ -49,7 +49,7 @@ public class TestController {
         log.info("================getList===============");
         log.info(writer);
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
-        pageRequestDTO.setWriter(writer);
+        pageRequestDTO.setWriterId(1L);
         return new ResponseEntity<>(diaryService.getListPage(pageRequestDTO), HttpStatus.OK);
     }
 

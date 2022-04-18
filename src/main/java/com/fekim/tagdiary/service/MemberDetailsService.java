@@ -25,7 +25,7 @@ public class MemberDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("UserDetailsService loadUserByUsername : " + username);
 
-        Optional<Member> result = memberRepository.findById(username, false);
+        Optional<Member> result = memberRepository.findByEmail(username, false);
 
         if(result.isEmpty()){
             throw new UsernameNotFoundException("Check Id or social");
@@ -37,13 +37,15 @@ public class MemberDetailsService implements UserDetailsService {
         log.info(member);
 
         AuthMemberDTO authMemberDTO = new AuthMemberDTO(
-                member.getId(),
-                member.getPassword(),
                 member.getEmail(),
+                member.getPassword(),
                 member.isFromSocial(),
                 member.getRoleSet().stream()
                         .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name())).collect(Collectors.toSet())
         );
+
+        authMemberDTO.setName(member.getName());
+        authMemberDTO.setId(member.getId());
 
         return authMemberDTO;
     }

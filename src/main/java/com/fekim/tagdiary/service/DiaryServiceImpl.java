@@ -85,7 +85,7 @@ public class DiaryServiceImpl implements DiaryService{
         Page<Diary> result = diaryRepository.searchPage(
                 pageRequestDTO.getType(),
                 pageRequestDTO.getKeyword(),
-                pageRequestDTO.getWriter(),
+                pageRequestDTO.getWriterId(),
                 pageable
         );
 
@@ -97,7 +97,7 @@ public class DiaryServiceImpl implements DiaryService{
 
             diaryDTO.setDno(diary.getDno());
             diaryDTO.setTitle(diary.getTitle());
-            diaryDTO.setWriter(pageRequestDTO.getWriter());
+            diaryDTO.setWriterId(pageRequestDTO.getWriterId());
             diaryDTO.setModDate(diary.getModDate());
             diaryDTO.setRegDate(diary.getRegDate());
 

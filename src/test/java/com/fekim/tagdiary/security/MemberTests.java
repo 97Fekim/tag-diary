@@ -21,14 +21,14 @@ public class MemberTests {
     public void addRole(){
 
         Member member1 = Member.builder()
-                .id("Romeo")
+                .name("Romeo")
                 .password(passwordEncoder.encode("1234"))
                 .email("Roemo@gmail.com")
                 .fromSocial(false)
                 .build();
 
         Member member2 = Member.builder()
-                .id("Juliet")
+                .name("Juliet")
                 .password(passwordEncoder.encode("1234"))
                 .email("Juliet@gmail.com")
                 .fromSocial(false)

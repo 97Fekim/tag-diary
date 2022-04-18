@@ -24,7 +24,7 @@ public class DiaryRepositoryTests {
     @Test
     public void testInsertDummiesFail() {
         Diary diary1 = Diary.builder()
-                .writer(Member.builder().id("Michael").build())
+                .writer(Member.builder().id(3L).build())
                 .title("1월 1일")
                 .build();
 
@@ -39,7 +39,7 @@ public class DiaryRepositoryTests {
             int day = 1 + i % 30;
 
             Diary diary1 = Diary.builder()
-                    .writer(Member.builder().id("Romeo").build())
+                    .writer(Member.builder().id(1L).build())
                     .title(month + "월 " + day + "일")
                     .build();
 
@@ -51,7 +51,7 @@ public class DiaryRepositoryTests {
             int day = 1 + i % 30;
 
             Diary diary1 = Diary.builder()
-                    .writer(Member.builder().id("Juliet").build())
+                    .writer(Member.builder().id(2L).build())
                     .title(month + "월 " + day + "일")
                     .build();
 
@@ -89,7 +89,7 @@ public class DiaryRepositoryTests {
         Pageable pageable = PageRequest.of(0,10,
                 Sort.by("dno").descending());
 
-        Page<Diary> result = repository.searchPage("tagName", "절망","Romeo", pageable);
+        Page<Diary> result = repository.searchPage("tagName", "절망",1L, pageable);
 
         for (Diary diary : result.toList()){
             System.out.println(diary);

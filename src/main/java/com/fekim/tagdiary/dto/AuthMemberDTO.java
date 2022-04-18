@@ -15,25 +15,22 @@ import java.util.Collection;
 @ToString
 public class AuthMemberDTO extends User {
 
-    private String id;
-    private String password;
+    private Long id;
+    private String name;
     private String email;
+    private String password;
     private boolean fromSocial;
 
     public AuthMemberDTO(String username,
                          String password,
-                         String email,
                          boolean fromSocial,
                          Collection<? extends GrantedAuthority> authorities){
         super(username, password, authorities);
 
-        this.id = username;
+        this.email = username;
         this.password = password;
-        this.email = email;
         this.fromSocial = fromSocial;
-
+        // id와 name은 Service에서 set
     }
-
-
 
 }

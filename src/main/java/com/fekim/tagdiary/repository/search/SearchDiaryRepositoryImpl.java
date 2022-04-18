@@ -30,7 +30,7 @@ public class SearchDiaryRepositoryImpl extends QuerydslRepositorySupport impleme
     }
 
     @Override
-    public Page<Diary> searchPage(String type, String keyword, String writer, Pageable pageable) {
+    public Page<Diary> searchPage(String type, String keyword, Long writerId, Pageable pageable) {
         log.info("searchPage.......................");
 
         QDiary diary = QDiary.diary;
@@ -67,7 +67,7 @@ public class SearchDiaryRepositoryImpl extends QuerydslRepositorySupport impleme
         }
 
         query.where(booleanBuilder);
-        query.where(diary.writer.id.eq(writer));
+        query.where(diary.writer.id.eq(writerId));
 
         Sort sort = pageable.getSort();
 

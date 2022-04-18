@@ -31,7 +31,7 @@ public class DiaryServiceTests {
 
         DiaryDTO diaryDTO = DiaryDTO.builder()
                 .title("등록 테스트 제목3")
-                .writer("Romeo")
+                .writerId(1L)
                 .writeUpDTOList(writeUpDTOList)
                 .build();
 
@@ -49,7 +49,7 @@ public class DiaryServiceTests {
         DiaryDTO dto = diaryService.read(195L);
         System.out.println(dto.getDno());
         System.out.println(dto.getTitle());
-        System.out.println(dto.getWriter());
+        System.out.println(dto.getWriterId());
         System.out.println(dto.getModDate());
         System.out.println(dto.getRegDate());
 
@@ -63,7 +63,7 @@ public class DiaryServiceTests {
     public void testGetList(){
 
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
-        pageRequestDTO.setWriter("Romeo");
+        pageRequestDTO.setWriterId(1L);
 
         PageResultDTO pageResultDTO = diaryService.getListPage(pageRequestDTO);
 
@@ -96,7 +96,7 @@ public class DiaryServiceTests {
         DiaryDTO diaryDTO = DiaryDTO.builder()
                 .dno(199L)
                 .title("수정 테스트 제목1")
-                .writer("Romeo")
+                .writerId(1L)
                 .writeUpDTOList(writeUpDTOList)
                 .build();
 

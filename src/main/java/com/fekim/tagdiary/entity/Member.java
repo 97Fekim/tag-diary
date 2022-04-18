@@ -2,10 +2,7 @@ package com.fekim.tagdiary.entity;
 
 import lombok.*;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +15,16 @@ import java.util.Set;
 public class Member extends BaseEntity{
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
+    private String name;
+
+    @Column(unique = true)
+    private String email;
 
     private String password;
-
-    private String email;
 
     private boolean fromSocial;
 

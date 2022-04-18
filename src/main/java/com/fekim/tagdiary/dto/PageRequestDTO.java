@@ -15,7 +15,7 @@ public class PageRequestDTO {
     private int size;    // 한번에 몇 개의 페이지를 가져올건지
     private String type;
     private String keyword;
-    private String writer;
+    private Long writerId;
 
     public PageRequestDTO(){
         this.page = 1;
