@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -32,6 +33,16 @@ public class MemberRepositoryTests {
 
         repository.save(member1);
         repository.save(member2);
+
+    }
+
+    @Test
+    public void testRead(){
+        Optional<Member> member = repository.findById("Romeo", false);
+
+        Member member1 = member.get();
+
+        System.out.println(member1);
 
     }
 
