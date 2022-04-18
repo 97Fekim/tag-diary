@@ -1,8 +1,8 @@
 package com.fekim.tagdiary.security.service;
 
+import com.fekim.tagdiary.member.domain.MemberRole;
 import com.fekim.tagdiary.security.dto.AuthMemberDTO;
 import com.fekim.tagdiary.member.domain.Member;
-import com.fekim.tagdiary.member.domain.MemberRole;
 import com.fekim.tagdiary.member.domain.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -50,10 +50,6 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
         }
 
         log.info("EMAIL : " + email);
-
-//        Member member = saveSocialMember(email);
-//
-//        return oAuth2User;
 
         Member member = saveSocialMember(email);
 

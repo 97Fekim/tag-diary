@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div sec:authentication="principal.username"></div>
+    <br><br><br><br>
+
+    <tr th:each="dto : ${result.dtoList}">
+        <td>[[${dto.title}]]</td>
+        <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+        <td>[[${#temporals.format(dto.modDate, 'yyyy/MM/dd')}]]</td>
+        <br>
+    </tr>
+    <br><br>
+    [[${result.page}]]<br>
+    [[${result.size}]]<br>
+    [[${result.totalPage}]]<br>
+    [[${result.start}]]<br>
+    [[${result.end}]]<br>
+    [[${result.prev}]]<br>
+    [[${result.next}]]<br>
+    [[${result.pageList}]]<br>
+
+</body>
+</html>

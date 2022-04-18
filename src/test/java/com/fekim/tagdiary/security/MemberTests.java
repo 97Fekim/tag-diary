@@ -1,8 +1,8 @@
 package com.fekim.tagdiary.security;
 
 import com.fekim.tagdiary.member.domain.Member;
-import com.fekim.tagdiary.member.domain.MemberRole;
 import com.fekim.tagdiary.member.domain.MemberRepository;
+import com.fekim.tagdiary.member.domain.MemberRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ public class MemberTests {
         Member member1 = Member.builder()
                 .name("Romeo")
                 .password(passwordEncoder.encode("1234"))
-                .email("Roemo@gmail.com")
+                .email("Romeo@gmail.com")
                 .fromSocial(false)
                 .build();
 

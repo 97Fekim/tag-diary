@@ -4,7 +4,9 @@ import com.fekim.tagdiary.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,5 +38,6 @@ public class Member extends BaseEntity {
     public void addMemberRole(MemberRole memberRole){
         roleSet.add(memberRole);
     }
+
 
 }

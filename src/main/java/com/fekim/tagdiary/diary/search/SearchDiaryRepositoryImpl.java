@@ -1,9 +1,9 @@
 package com.fekim.tagdiary.diary.search;
 
 import com.fekim.tagdiary.diary.domain.Diary;
-import com.fekim.tagdiary.entity.QDiary;
-import com.fekim.tagdiary.entity.QTag;
-import com.fekim.tagdiary.entity.QWriteUp;
+import com.fekim.tagdiary.diary.domain.QDiary;
+import com.fekim.tagdiary.tag.domain.QTag;
+import com.fekim.tagdiary.writeup.domain.QWriteUp;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;

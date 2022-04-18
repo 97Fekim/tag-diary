@@ -20,11 +20,9 @@ public class AuthMemberDTO extends User implements OAuth2User {
     private Long id;
     private String name;
     private String email;
-    private String password;
     private boolean fromSocial;
 
     private Map<String, Object> attr;
-
 
     /* 일반 로그인 */
     public AuthMemberDTO(String username,
@@ -34,7 +32,6 @@ public class AuthMemberDTO extends User implements OAuth2User {
         super(username, password, authorities);
 
         this.email = username;
-        this.password = password;
         this.fromSocial = fromSocial;
         // id와 name은 Service에서 set
     }
