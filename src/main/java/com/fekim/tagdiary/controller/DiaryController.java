@@ -29,11 +29,11 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     @GetMapping("/register")
-    public void registerGet(){
+    public void registerGet(@AuthenticationPrincipal AuthMemberDTO authMemberDTO){
 
     }
 
-    @PostMapping("/regster")
+    @PostMapping("/register")
     public String registerPost(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
                                DiaryDTO diaryDTO,
                                RedirectAttributes redirectAttributes){
@@ -62,35 +62,47 @@ public class DiaryController {
         log.info(authMemberDTO);
     }
 
-    @GetMapping({"/read","/modify"})
-    public void read(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+    @GetMapping("/read")
+    public String read(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
                      @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
                      Long dno,
                      Model model){
 
         log.info("dno : "+dno);
-
+        
         DiaryDTO diaryDTO = diaryService.read(dno);
 
-        model.addAttribute("diaryDTO", diaryDTO);
+        if(!diaryDTO.getWriterId().equals(authMemberDTO.getId())) {
+            return "redirect:/diarys/list";
+        } else {
+            model.addAttribute("diaryDTO", diaryDTO);
+            return "/diarys/read";
+        }
 
     }
 
-    @PostMapping("/delete")
-    public String delete(Long dno, RedirectAttributes redirectAttributes){
+    @GetMapping("/modify")
+    public String modifyGet(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                       @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
+                       Long dno,
+                       Model model){
 
-        diaryService.removeDiaryWithWriteUps(dno);
+        log.info("dno : "+dno);
 
-        redirectAttributes.addFlashAttribute("msg", dno);
+        DiaryDTO diaryDTO = diaryService.read(dno);
 
-        return "redirect:/diarys/list";
-
+        if(!diaryDTO.getWriterId().equals(authMemberDTO.getId())) {
+            return "redirect:/diarys/list";
+        } else {
+            model.addAttribute("diaryDTO", diaryDTO);
+            return "/diarys/modify";
+        }
     }
 
     @PostMapping("/modify")
     public String modify(DiaryDTO diaryDTO,
-                       @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
-                       RedirectAttributes redirectAttributes){
+                         @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
+                         RedirectAttributes redirectAttributes){
 
         diaryService.modify(diaryDTO);
 
@@ -102,6 +114,19 @@ public class DiaryController {
         redirectAttributes.addAttribute("dno", diaryDTO.getDno());
 
         return "redirect:/diarys/list";
+
+    }
+
+    @PostMapping("/remove")
+    public String remove(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                         Long dno,
+                         RedirectAttributes redirectAttributes) {
+
+        diaryService.removeDiaryWithWriteUps(dno);
+
+        redirectAttributes.addFlashAttribute("msg", dno);
+
+        return "redirect:/";
 
     }
 
