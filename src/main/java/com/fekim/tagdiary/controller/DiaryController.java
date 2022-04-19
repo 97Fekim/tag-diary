@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,31 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/diarys/")
+@PreAuthorize("#authMemberDTO != null") // 사용자의 DTO가 있을때만 가능한 요청
 public class DiaryController {
 
     private final DiaryService diaryService;
 
-    //@PreAuthorize("#authoMemberDTO != null") // 사용자의 DTO가 있을때만 가능한 요청
+    @GetMapping("/register")
+    public void registerGet(){
+
+    }
+
+    @PostMapping("/regster")
+    public String registerPost(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                               DiaryDTO diaryDTO,
+                               RedirectAttributes redirectAttributes){
+
+        diaryDTO.setWriterId(authMemberDTO.getId());
+
+        Long dno = diaryService.register(diaryDTO);
+
+        redirectAttributes.addFlashAttribute("msg", dno);
+
+        return "redirect:/diarys/list";
+
+    }
+
     @GetMapping("/list")
     public void list(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
                      @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
@@ -40,24 +62,7 @@ public class DiaryController {
         log.info(authMemberDTO);
     }
 
-    @GetMapping("/register")
-    public void registerGet(){
-
-    }
-
-    @PostMapping("/regster")
-    public String registerPost(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
-                             DiaryDTO diaryDTO,
-                             RedirectAttributes redirectAttributes){
-
-        diaryDTO.setWriterId(authMemberDTO.getId());
-        Long dno = diaryService.register(diaryDTO);
-        redirectAttributes.addAttribute("msg", dno);
-        return "redirect:/diarys/list";
-
-    }
-
-    @GetMapping("/read")
+    @GetMapping({"/read","/modify"})
     public void read(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
                      @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
                      Long dno,
@@ -68,6 +73,35 @@ public class DiaryController {
         DiaryDTO diaryDTO = diaryService.read(dno);
 
         model.addAttribute("diaryDTO", diaryDTO);
+
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long dno, RedirectAttributes redirectAttributes){
+
+        diaryService.removeDiaryWithWriteUps(dno);
+
+        redirectAttributes.addFlashAttribute("msg", dno);
+
+        return "redirect:/diarys/list";
+
+    }
+
+    @PostMapping("/modify")
+    public String modify(DiaryDTO diaryDTO,
+                       @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
+                       RedirectAttributes redirectAttributes){
+
+        diaryService.modify(diaryDTO);
+
+        // 수정 후에 원래 있던 페이지로 가기 위해 request를 저장
+        redirectAttributes.addAttribute("page", pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+        redirectAttributes.addAttribute("type", pageRequestDTO.getType());
+        redirectAttributes.addAttribute("keyword", pageRequestDTO.getKeyword());
+        redirectAttributes.addAttribute("dno", diaryDTO.getDno());
+
+        return "redirect:/diarys/list";
 
     }
 
