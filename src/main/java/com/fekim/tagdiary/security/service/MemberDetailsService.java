@@ -25,7 +25,7 @@ public class MemberDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("UserDetailsService loadUserByUsername : " + username);
 
-        Optional<Member> result = memberRepository.findByEmail(username, false);
+        Optional<Member> result = memberRepository.findByName(username, false);
 
         if(result.isEmpty()){
             throw new UsernameNotFoundException("Check Id or social");
@@ -37,7 +37,7 @@ public class MemberDetailsService implements UserDetailsService {
         log.info(member);
 
         AuthMemberDTO authMemberDTO = new AuthMemberDTO(
-                member.getEmail(),
+                member.getName(),   // 임시로 이메일을 name으로 처리
                 member.getPassword(),
                 member.isFromSocial(),
                 member.getRoleSet().stream()

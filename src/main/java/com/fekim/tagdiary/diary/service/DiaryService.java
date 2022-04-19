@@ -108,6 +108,7 @@ public interface DiaryService {
                     .tno(tag.getTno())
                     .name(tag.getTagName())
                     .type(tag.getTagType())
+                    .color(tag.getTagColor())
                     .build();
 
             WriteUpDTO writeUpDTO = WriteUpDTO.builder()

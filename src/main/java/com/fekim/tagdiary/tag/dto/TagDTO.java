@@ -14,5 +14,6 @@ public class TagDTO {
     private Long tno;
     private String name;
     private String type;
+    private String color;
 
 }

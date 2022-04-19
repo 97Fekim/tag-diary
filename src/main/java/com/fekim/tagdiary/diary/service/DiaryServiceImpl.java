@@ -54,7 +54,7 @@ public class DiaryServiceImpl implements DiaryService{
         writeUpList.stream().forEach(writeUp -> {
             log.info("==============dno : " + writeUp.getDiary().getDno());
             log.info("==============tno : " + writeUp.getTag().getTno());
-            tagRepository.save(writeUp.getTag());   // Tag 먼저 저장
+            tagRepository.save(writeUp.getTag());   // Tag 먼저 저장 ?? 필요 없는 부분인듯???
             writeUpRepository.save(writeUp);
         });
 
@@ -122,6 +122,7 @@ public class DiaryServiceImpl implements DiaryService{
                                 .tno(tag.getTno())
                                 .name(tag.getTagName())
                                 .type(tag.getTagType())
+                                .color(tag.getTagColor())
                                 .build())
                         .build();
 

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
 public class MemberTests {
@@ -40,6 +41,18 @@ public class MemberTests {
         memberRepository.save(member1);
         memberRepository.save(member2);
 
+    }
+
+    @Test
+    public void testJoin(){
+        Member member = Member.builder()
+                .name("join_test_member")
+                .password(passwordEncoder.encode("1234"))
+                .build();
+
+        member.addMemberRole(MemberRole.USER);
+
+        memberRepository.save(member);
     }
 
 }

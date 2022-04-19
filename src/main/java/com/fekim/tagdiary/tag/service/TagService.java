@@ -13,6 +13,7 @@ public interface TagService {
                 .tno(tag.getTno())
                 .name(tag.getTagName())
                 .type(tag.getTagType())
+                .color(tag.getTagColor())
                 .build();
 
         return tagDTO;

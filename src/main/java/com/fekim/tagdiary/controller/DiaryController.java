@@ -5,6 +5,8 @@ import com.fekim.tagdiary.security.dto.AuthMemberDTO;
 import com.fekim.tagdiary.diary.dto.PageRequestDTO;
 import com.fekim.tagdiary.diary.dto.PageResultDTO;
 import com.fekim.tagdiary.diary.service.DiaryService;
+import com.fekim.tagdiary.tag.dto.TagDTO;
+import com.fekim.tagdiary.writeup.dto.WriteUpDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;

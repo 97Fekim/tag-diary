@@ -20,7 +20,6 @@
 
         <!-- Main Content-->
         <div class="container px-4 px-lg-5">
-
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
 
@@ -28,26 +27,26 @@
                         <button class="btn btn-outline-dark">글 쓰기</button>
                     </a>
 
+                    <!-- Search -->
                     <div class="s003">
-                        <form>
+                        <form action="/diarys/list" method="get" id="searchForm">
                             <div class="inner-form">
+
                                 <div class="input-field first-wrap">
                                     <div class="input-select">
-                                        <select data-trigger="" name="choices-single-defaul">
-                                            <option placeholder="">카테고리</option>
-                                            <option>New Arrivals</option>
-                                            <option>Sale</option>
-                                            <option>Ladies</option>
-                                            <option>Men</option>
-                                            <option>Clothing</option>
-                                            <option>Footwear</option>
-                                            <option>Accessories</option>
+                                        <input type="hidden" name="page" value="1">
+                                        <select data-trigger="" name="type">
+                                            <!--<option placeholder="">카테고리</option>-->
+                                            <option value="diaryTitle" th:selected="${pageRequestDTO.type == 'diaryTitle'}">제목</option>
+                                            <option value="tagName" th:selected="${pageRequestDTO.type == 'tagName'}">태그</option>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="input-field second-wrap">
-                                    <input id="search" type="text" placeholder="검색어를 입력하세요" />
+                                    <input id="search" name="keyword" placeholder="찾으려는 키워드를 입력하세요" />
                                 </div>
+
                                 <div class="input-field third-wrap">
                                     <button class="btn-search" type="button">
                                         <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -55,6 +54,7 @@
                                         </svg>
                                     </button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
@@ -67,7 +67,9 @@
                                 <h2 class="post-title">[[${dto.title}]]</h2>
                             </a>
                             <th:block th:each="writeUp : ${dto.writeUpDTOList}">
-                                [[${writeUp.tagDTO.name}]]
+                                <span class="tagBox" th:style="|background-color: ${writeUp.tagDTO.color}|">
+                                    [[${writeUp.tagDTO.name}]]
+                                </span>&nbsp;
                             </th:block>
                             <p class="post-meta">
                                 Posted on [[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]
@@ -106,6 +108,7 @@
                         </li>
 
                     </ul>
+
                 </div>
             </div>
         </div>
@@ -125,16 +128,14 @@
             $(".btn-search").click(function(e){
                 searchForm.submit();
             })
-            // clear
-            $(".btn-clear").click(function(e){
-                searchForm.empty().submit();
-            })
 
             const choices = new Choices('[data-trigger]',
                 {
                     searchEnabled: false,
                     itemSelectText: '',
                 });
+
+
         </script>
 
 
