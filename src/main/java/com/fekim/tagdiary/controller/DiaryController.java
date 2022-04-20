@@ -6,6 +6,7 @@ import com.fekim.tagdiary.diary.dto.PageRequestDTO;
 import com.fekim.tagdiary.diary.dto.PageResultDTO;
 import com.fekim.tagdiary.diary.service.DiaryService;
 import com.fekim.tagdiary.tag.dto.TagDTO;
+import com.fekim.tagdiary.tag.service.TagService;
 import com.fekim.tagdiary.writeup.dto.WriteUpDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,9 +31,13 @@ public class DiaryController {
 
     private final DiaryService diaryService;
 
-    @GetMapping("/register")
-    public void registerGet(@AuthenticationPrincipal AuthMemberDTO authMemberDTO){
+    private final TagService tagService;
 
+    @GetMapping("/register")
+    public void registerGet(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                            Model model){
+
+        model.addAttribute("tagDTOList",tagService.getList());
     }
 
     @PostMapping("/register")

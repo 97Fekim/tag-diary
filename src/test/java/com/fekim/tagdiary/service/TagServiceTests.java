@@ -23,4 +23,11 @@ public class TagServiceTests {
 
     }
 
+    @Test
+    public void testGetList(){
+        for(TagDTO tagDTO : tagService.getList()){
+            System.out.println(tagDTO);
+        }
+    }
+
 }

@@ -23,7 +23,7 @@ public class WriteUpRepositoryTests {
     @Test
     public void testInsertDummies(){
 
-        IntStream.rangeClosed(1,2400).forEach(i -> {
+        IntStream.rangeClosed(1,1800).forEach(i -> {
 
             // 일기장 번호
             Long dno = (long) (Math.random() * 400) + 1;

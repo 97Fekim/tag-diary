@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Log4j2
 @Service
@@ -37,6 +39,21 @@ public class TagServiceImpl implements TagService{
         }
 
         return null;
+    }
+
+    @Override
+    public List<TagDTO> getList() {
+
+        List<Tag> tagList = tagRepository.findAll();
+
+        List<TagDTO> tagDTOList = new ArrayList<>();
+
+        for(Tag tag : tagList){
+            tagDTOList.add(entityToDTO(tag));
+        }
+
+        return tagDTOList;
+
     }
 
     /* 찾는 Tag는 가장 인기 있는 Tag입니다.
