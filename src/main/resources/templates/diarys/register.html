@@ -24,13 +24,13 @@
                         <div class="card-header">태그1</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="post-preview tag-container">
+                                <div id="tagContainer" class="post-preview">
 
                                     <th:block th:each="tagDTO : ${tagDTOList}">
                                         <!-- Post preview-->
 
-                                        <button draggable="true" class="tag-box" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
-                                        </button>&nbsp;
+                                        <button th:id="${tagDTO.tno}" class="big-tag-box" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
+                                        </button>
 
                                     </th:block>
 
@@ -40,7 +40,7 @@
                         <div class="card-header">태그2</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="post-preview tag-container">
+                                <div class="post-preview">
 
                                     <th:block th:each="tagDTO : ${tagDTOList}">
                                         <!-- Post preview-->
@@ -62,74 +62,62 @@
                 </div>
 
                 <div class="col-lg-8">
-                    <!-- Post content-->
-                    <!--<article>
-                        &lt;!&ndash; Post header&ndash;&gt;
-                        <header class="mb-4">
-                            &lt;!&ndash; Post title&ndash;&gt;
-                            <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
-                            &lt;!&ndash; Post meta content&ndash;&gt;
-                            <div class="text-muted fst-italic mb-2">Posted on January 1, 2022 by Start Bootstrap</div>
-                        </header>
-                        &lt;!&ndash; Post content&ndash;&gt;
-                        <section class="mb-5">
-                            <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind.</p>
-                            </section>
-                    </article>-->
+                    <div class="card-header">글 등록</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div id="diaryContainer" class="post-preview tag-container">
 
-                    <!-- Comments section-->
-                    <section class="mb-5">
-                            <div class="card-body">
-                                <!-- Comment form-->
-                                <form class="mb-4">
-                                    <input class="form-control card-header tag-container diary" placeholder="제목을 입력하세요">
-                                    <textarea class="form-control" rows="6" placeholder="태그를 추가한 후 내용을 입력하세요"></textarea>
-                                </form>
 
-                                <div id="temp" class="tag-container" style="margin: 10px; padding: 10px; border-radius: 8px">
-                                    여기는 dropTag
-                                </div>
                             </div>
-                    </section>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <script>
-            const draggables = document.querySelectorAll(".tag-box");
-            const containers = document.querySelectorAll(".tag-container");
+            const tags = document.querySelectorAll(".big-tag-box");
+            const tagContainer = document.getElementById("tagContainer")
+            const diaryContainer = document.getElementById("diaryContainer")
 
-            draggables.forEach(draggable => {
-                draggable.addEventListener("dragstart", () => {
-                    draggable.classList.add("dragging");
+            tags.forEach(tag => {
+                tag.addEventListener("click", () => {
+                    console.log(tag);
+                    tag.classList.add("move");
+
+                    const move = document.querySelector(".move");
+
+                    diaryContainer.appendChild(move);
+                    tag.classList.remove("move");
+
                 });
 
-                draggable.addEventListener("dragend", () => {
-                    draggable.classList.remove("dragging");
-                    console.log("drop!!!")
-
-                    let beAdded = document.createElement('textarea');
-
-                    beAdded.setAttribute('row', 6);
-                    beAdded.setAttribute('placeholder', '새로생김');
-
-                    let beAddedBr = document.createElement('br');
-
-                    console.log("drop!");
-
-                    document.getElementById('temp').appendChild(beAdded);
-                    document.getElementById('temp').appendChild(beAddedBr);
-                });
+                // draggable.addEventListener("dragend", () => {
+                //     draggable.classList.remove("dragging");
+                //     console.log("drop!!!")
+                //
+                //     let beAdded = document.createElement('textarea');
+                //
+                //     beAdded.setAttribute('row', 6);
+                //     beAdded.setAttribute('placeholder', '새로생김');
+                //
+                //     let beAddedBr = document.createElement('br');
+                //
+                //     console.log("drop!");
+                //
+                //     document.getElementById('temp').appendChild(beAdded);
+                //     document.getElementById('temp').appendChild(beAddedBr);
+                // });
             });
 
-            containers.forEach(container => {
-                container.addEventListener("dragover", e => {
-                    e.preventDefault();
-                    const draggable = document.querySelector(".dragging");
-                    container.appendChild(draggable);
-
-                });
-            });
+            // containers.forEach(container => {
+            //     container.addEventListener("dragover", e => {
+            //         e.preventDefault();
+            //         const draggable = document.querySelector(".dragging");
+            //         container.appendChild(draggable);
+            //
+            //     });
+            // });
 
         </script>
 

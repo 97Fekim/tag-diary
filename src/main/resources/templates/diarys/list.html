@@ -66,7 +66,7 @@
                                 <h2 class="post-title">[[${dto.title}]]</h2>
                             </a>
                             <th:block th:each="writeUp : ${dto.writeUpDTOList}">
-                                <span class="tag-box" th:style="|background-color: ${writeUp.tagDTO.color}|">
+                                <span class="small-tag-box" th:style="|background-color: ${writeUp.tagDTO.color}|">
                                     [[${writeUp.tagDTO.name}]]
                                 </span>&nbsp;
                             </th:block>
