@@ -133,7 +133,7 @@ public class DiaryController {
 
         redirectAttributes.addFlashAttribute("msg", dno);
 
-        return "redirect:/";
+        return "redirect:/diarys/list";
 
     }
 

@@ -21,20 +21,34 @@
                 <div class="col-lg-4">
                     <!-- Categories widget-->
                     <div class="card mb-4">
-                        <div class="card-header">태그</div>
+                        <div class="card-header">태그1</div>
                         <div class="card-body">
                             <div class="row">
-                                <!-- Register Content -->
-                                <div class="post-preview">
+                                <div class="post-preview tag-container">
 
-                                    <tr th:each="tagDTO : ${tagDTOList}">
+                                    <th:block th:each="tagDTO : ${tagDTOList}">
                                         <!-- Post preview-->
 
-                                        <span class="tagBox" th:style="|background-color: ${tagDTO.color}|">
-                                            [[${tagDTO.name}]]
-                                        </span>&nbsp;
+                                        <button draggable="true" class="tag-box" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
+                                        </button>&nbsp;
 
-                                    </tr>
+                                    </th:block>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">태그2</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="post-preview tag-container">
+
+                                    <th:block th:each="tagDTO : ${tagDTOList}">
+                                        <!-- Post preview-->
+
+                                        <button draggable="true" class="tag-box" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
+                                        </button>&nbsp;
+
+                                    </th:block>
 
                                 </div>
                             </div>
@@ -68,16 +82,56 @@
                             <div class="card-body">
                                 <!-- Comment form-->
                                 <form class="mb-4">
-                                    <input class="form-control card-header" placeholder="제목을 입력하세요">
+                                    <input class="form-control card-header tag-container diary" placeholder="제목을 입력하세요">
                                     <textarea class="form-control" rows="6" placeholder="태그를 추가한 후 내용을 입력하세요"></textarea>
                                 </form>
 
+                                <div id="temp" class="tag-container" style="margin: 10px; padding: 10px; border-radius: 8px">
+                                    여기는 dropTag
+                                </div>
                             </div>
                     </section>
                 </div>
             </div>
         </div>
 
+        <script>
+            const draggables = document.querySelectorAll(".tag-box");
+            const containers = document.querySelectorAll(".tag-container");
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener("dragstart", () => {
+                    draggable.classList.add("dragging");
+                });
+
+                draggable.addEventListener("dragend", () => {
+                    draggable.classList.remove("dragging");
+                    console.log("drop!!!")
+
+                    let beAdded = document.createElement('textarea');
+
+                    beAdded.setAttribute('row', 6);
+                    beAdded.setAttribute('placeholder', '새로생김');
+
+                    let beAddedBr = document.createElement('br');
+
+                    console.log("drop!");
+
+                    document.getElementById('temp').appendChild(beAdded);
+                    document.getElementById('temp').appendChild(beAddedBr);
+                });
+            });
+
+            containers.forEach(container => {
+                container.addEventListener("dragover", e => {
+                    e.preventDefault();
+                    const draggable = document.querySelector(".dragging");
+                    container.appendChild(draggable);
+
+                });
+            });
+
+        </script>
 
     </th:block>
 </th:block>
