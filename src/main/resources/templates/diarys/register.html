@@ -27,11 +27,7 @@
                                 <div id="tagContainer" class="post-preview">
 
                                     <th:block th:each="tagDTO : ${tagDTOList}">
-                                        <!-- Post preview-->
-
-                                        <button th:id="${tagDTO.tno}" class="big-tag-box" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
-                                        </button>
-
+                                        <button th:id="${tagDTO.tno}" class="big-tag-box in-tag-container" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}"></button>
                                     </th:block>
 
                                 </div>
@@ -40,13 +36,12 @@
                         <div class="card-header">태그2</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="post-preview">
+                                <div id="tagContainer2" class="post-preview">
 
                                     <th:block th:each="tagDTO : ${tagDTOList}">
-                                        <!-- Post preview-->
 
-                                        <button draggable="true" class="tag-box" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
-                                        </button>&nbsp;
+                                        <button th:id="${tagDTO.tno}" class="big-tag-box in-tag-container" th:style="|background-color: ${tagDTO.color}|" th:text="${tagDTO.name}">
+                                        </button>
 
                                     </th:block>
 
@@ -67,57 +62,90 @@
                         <div class="row">
                             <div id="diaryContainer" class="post-preview tag-container">
 
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <script>
-            const tags = document.querySelectorAll(".big-tag-box");
-            const tagContainer = document.getElementById("tagContainer")
-            const diaryContainer = document.getElementById("diaryContainer")
+            /* tag 공간과 diary 공간 */
+            const tagContainer = document.getElementById("tagContainer");
+            const diaryContainer = document.getElementById("diaryContainer");
 
-            tags.forEach(tag => {
-                tag.addEventListener("click", () => {
-                    console.log(tag);
-                    tag.classList.add("move");
+            /* tagContainer => diaryContainer */
+            $(document).on("click",".big-tag-box",function() {
 
-                    const move = document.querySelector(".move");
+                /* 헤더 만들기 */
+                let addHeader = document.createElement('div');
+                addHeader.innerHTML = this.innerHTML;
+                addHeader.setAttribute("id", "header-id-" + this.getAttribute("id"));
+                addHeader.setAttribute("class", "card-header");
+                addHeader.setAttribute("style", this.getAttribute('style'));
+                addHeader.setAttribute("ros", 3);
 
-                    diaryContainer.appendChild(move);
-                    tag.classList.remove("move");
+                /* 제거 버튼 만들기 */
+                let removeBtn = document.createElement('button');
+                removeBtn.innerHTML = 'x';
+                removeBtn.setAttribute("style", this.getAttribute('style') + "; color : red; border:0; outline:0; float:right");
+                removeBtn.setAttribute("class", "removeBtn");
+                removeBtn.setAttribute("id", "removeBtn" + this.getAttribute("id"));
 
-                });
+                addHeader.appendChild(removeBtn);
 
-                // draggable.addEventListener("dragend", () => {
-                //     draggable.classList.remove("dragging");
-                //     console.log("drop!!!")
-                //
-                //     let beAdded = document.createElement('textarea');
-                //
-                //     beAdded.setAttribute('row', 6);
-                //     beAdded.setAttribute('placeholder', '새로생김');
-                //
-                //     let beAddedBr = document.createElement('br');
-                //
-                //     console.log("drop!");
-                //
-                //     document.getElementById('temp').appendChild(beAdded);
-                //     document.getElementById('temp').appendChild(beAddedBr);
-                // });
+                /* text 적힐 곳 만들기 */
+                let addTextarea = document.createElement('textarea');
+                addTextarea.setAttribute("id", "textarea-id-" + this.getAttribute("id"));
+                addTextarea.setAttribute("class", "form-control");
+                addTextarea.setAttribute("placeholder", "내용을 입력하세요");
+
+                /* diaryContainer에 최종 추가 */
+                diaryContainer.appendChild(addHeader);
+                diaryContainer.appendChild(addTextarea);
+
+                /* tagContainer에 있는 Tag 지우면서 끝 */
+                tagContainer.removeChild(this);
+
+            })
+
+
+            /* 삭제 버튼 이벤트 처리
+            * diaryContainer => tagContainer
+            * */
+            $(document).on("click",".removeBtn",function(){
+
+                console.log(this);
+
+                /* Tag의 인덱스만 추출 */
+                var regex = /[^0-9]/g;
+                var index = this.getAttribute("id").replace(regex, "");
+                console.log(index);
+
+                /* 태그 삭제 */
+                var beRemovedTextArea = document.getElementById("textarea-id-"+index);
+                var beRemovedHeader = document.getElementById("header-id-"+index);
+
+                var tagText = beRemovedHeader.innerText;
+                tagText = tagText.substring(0, tagText.length - 2);
+                var tagColor = beRemovedHeader.getAttribute("style");
+
+                diaryContainer.removeChild(beRemovedTextArea);
+                diaryContainer.removeChild(beRemovedHeader);
+
+                /* TODO : Tag Container에 다시 태그 집어넣기 */
+
+                let reAddBtn = document.createElement('button');
+
+                reAddBtn.setAttribute("id", index);
+                reAddBtn.setAttribute("class", "big-tag-box in-tag-container");
+                reAddBtn.setAttribute("style", tagColor);
+                reAddBtn.innerText = tagText;
+
+                tagContainer.appendChild(reAddBtn);
+
             });
-
-            // containers.forEach(container => {
-            //     container.addEventListener("dragover", e => {
-            //         e.preventDefault();
-            //         const draggable = document.querySelector(".dragging");
-            //         container.appendChild(draggable);
-            //
-            //     });
-            // });
 
         </script>
 
