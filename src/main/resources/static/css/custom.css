@@ -1,10 +1,12 @@
 .small-tag-box{
-    border:1px solid;
+    border: 0;
+    outline: 0;
     padding:3px;
     border-radius: 7px 7px 7px 7px;
 }
 .big-tag-box{
-    border:1px solid;
+    border:0;
+    outline: 0;
     padding:3px;
     border-radius: 7px 7px 7px 7px;
     width: 75px;

@@ -29,7 +29,7 @@ public class WriteUpRepositoryTests {
             Long dno = (long) (Math.random() * 400) + 1;
 
             // 태그 번호
-            Long tno = (long)(Math.random() * 36) + 1;
+            Long tno = (long)(Math.random() * 14) + 1;
 
             Diary diary = Diary.builder().dno(dno).build();
 

@@ -3,6 +3,7 @@ package com.fekim.tagdiary.controller;
 import com.fekim.tagdiary.diary.dto.DiaryDTO;
 import com.fekim.tagdiary.diary.dto.PageRequestDTO;
 import com.fekim.tagdiary.diary.dto.PageResultDTO;
+import com.fekim.tagdiary.security.dto.AuthMemberDTO;
 import com.fekim.tagdiary.tag.dto.TagDTO;
 import com.fekim.tagdiary.diary.service.DiaryService;
 import com.fekim.tagdiary.tag.service.TagService;
@@ -11,6 +12,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @Log4j2
@@ -31,9 +34,15 @@ public class RestApiController {
     }
 
     @PostMapping(value="")
-    public ResponseEntity<Long> register(@RequestBody DiaryDTO diaryDTO){
+    public ResponseEntity<Long> register(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                                         @RequestBody DiaryDTO diaryDTO){
         log.info("==============register==============");
         log.info(diaryDTO);
+        log.info(authMemberDTO);
+
+        diaryDTO.setWriterId(authMemberDTO.getId());
+
+        System.out.println(diaryDTO);
 
         Long num = diaryService.register(diaryDTO);
 
@@ -51,14 +60,22 @@ public class RestApiController {
     }
 
     @GetMapping(value="/{num}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DiaryDTO> read(@PathVariable("num")Long num){
+    public ResponseEntity<DiaryDTO> read(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                                         @PathVariable("num")Long num){
 
+        log.info(authMemberDTO);
         log.info("===============read================");
-
         log.info(num);
 
-        return new ResponseEntity<>(diaryService.read(num), HttpStatus.OK);
+        DiaryDTO diaryDTO = diaryService.read(num);
 
+        if(!diaryDTO.getWriterId().equals(authMemberDTO.getId())) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
+            log.info("===============diaryDTO.getWriterId():" + diaryDTO.getWriterId());
+            log.info("===============authMemberDTO.getId():" + authMemberDTO.getId());
+            return new ResponseEntity<>(diaryDTO, HttpStatus.OK);
+        }
     }
 
     @DeleteMapping(value = "/{num}", produces = MediaType.TEXT_PLAIN_VALUE)

@@ -25,17 +25,17 @@ public class DiaryServiceTests {
         List<WriteUpDTO> writeUpDTOList = new ArrayList<>();
 
         writeUpDTOList.add(WriteUpDTO.builder()
-                .content("등록 테스트 내용5")
-                .tagDTO(TagDTO.builder().tno(5L).name("감격").type("emotion").build())
+                .content("등록 테스트 내용7")
+                .tagDTO(TagDTO.builder().tno(5L).build())
                 .build());
 
         writeUpDTOList.add(WriteUpDTO.builder()
-                .content("등록 테스트 내용6")
-                .tagDTO(TagDTO.builder().tno(6L).name("감사").type("emotion").build())
+                .content("등록 테스트 내용8")
+                .tagDTO(TagDTO.builder().tno(6L).build())
                 .build());
 
         DiaryDTO diaryDTO = DiaryDTO.builder()
-                .title("등록 테스트 제목3")
+                .title("등록 테스트 제목4")
                 .writerId(1L)
                 .writeUpDTOList(writeUpDTOList)
                 .build();
@@ -46,7 +46,7 @@ public class DiaryServiceTests {
 
     @Test
     public void testRemoveDiary(){
-        diaryService.removeDiaryWithWriteUps(403L);
+        diaryService.removeDiaryWithWriteUps(401L);
     }
 
     @Test

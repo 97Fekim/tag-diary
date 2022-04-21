@@ -30,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/diarys/**/*").hasRole("USER");
+//        http.authorizeRequests()
+//                .antMatchers("/diarys/**/*").hasRole("USER");
 
         http.formLogin();   // 인가/인증에 문제시 로그인 화면, .loginPage()나 .loginProcessUrl() 을 이용해서 커스텀 로그인 페이지 적용 가능
         // http.logout();      // .logoutPage()나 .logoutProcessUrl()을 이용해서 커스텀 로그아웃 페이지 적용 가능

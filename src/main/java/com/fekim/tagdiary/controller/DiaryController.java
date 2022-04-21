@@ -40,7 +40,11 @@ public class DiaryController {
         model.addAttribute("tagDTOList",tagService.getList());
     }
 
-    @PostMapping("/register")
+    /* 등록은 DiaryDTO를 파라미터로 보내야 합니다
+    * 이는 json으로 처리하기 위해
+    * REST Controller를 이용할 것이기 때문에 이 컨트롤러는 주석처리합니다.
+    *  */
+    /*@PostMapping("/register")
     public String registerPost(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
                                DiaryDTO diaryDTO,
                                RedirectAttributes redirectAttributes){
@@ -53,7 +57,7 @@ public class DiaryController {
 
         return "redirect:/diarys/list";
 
-    }
+    }*/
 
     @GetMapping("/list")
     public void list(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,

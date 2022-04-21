@@ -60,11 +60,16 @@
                     <div class="card-header">글 등록</div>
                     <div class="card-body">
                         <div class="row">
+                            <h1 class="fw-bolder mb-1">
+                                <input placeholder="제목을 입력하세요" style="border: 0; outline: 0">
+                            </h1>
+
                             <div id="diaryContainer" class="post-preview tag-container">
 
                             </div>
                         </div>
                     </div>
+                    <button id="registerBtn" style="float: right">등록</button>
                 </div>
             </div>
 
@@ -82,7 +87,7 @@
                 let addHeader = document.createElement('div');
                 addHeader.innerHTML = this.innerHTML;
                 addHeader.setAttribute("id", "header-id-" + this.getAttribute("id"));
-                addHeader.setAttribute("class", "card-header");
+                addHeader.setAttribute("class", "card-header tag-header");
                 addHeader.setAttribute("style", this.getAttribute('style'));
                 addHeader.setAttribute("ros", 3);
 
@@ -97,8 +102,9 @@
 
                 /* text 적힐 곳 만들기 */
                 let addTextarea = document.createElement('textarea');
+                addTextarea.setAttribute("style", "border:0; ouline:0")
                 addTextarea.setAttribute("id", "textarea-id-" + this.getAttribute("id"));
-                addTextarea.setAttribute("class", "form-control");
+                addTextarea.setAttribute("class", "form-control content-textarea");
                 addTextarea.setAttribute("placeholder", "내용을 입력하세요");
 
                 /* diaryContainer에 최종 추가 */
@@ -146,6 +152,30 @@
                 tagContainer.appendChild(reAddBtn);
 
             });
+
+            $(document).on("click", "#registerBtn", function (){
+                console.log("register!!!");
+
+                var tags = document.getElementsByClassName("tag-header");
+                var contents = document.getElementsByClassName("content-textarea")
+
+                var regex = /[^0-9]/g;
+
+                for(var tno of tags){
+
+                    var result = tno.getAttribute("id").replace(regex, "");
+                    console.log(result);
+
+                }
+
+                for(var content of contents){
+
+                    var result = content.value;
+                    console.log(result);
+
+                }
+
+            })
 
         </script>
 
