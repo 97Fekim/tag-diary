@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <div class="row">
                             <h1 class="fw-bolder mb-1">
-                                <input placeholder="제목을 입력하세요" style="border: 0; outline: 0">
+                                <input id="registerTitle" placeholder="제목을 입력하세요" style="border: 0; outline: 0">
                             </h1>
 
                             <div id="diaryContainer" class="post-preview tag-container">
@@ -140,40 +140,84 @@
                 diaryContainer.removeChild(beRemovedTextArea);
                 diaryContainer.removeChild(beRemovedHeader);
 
-                /* TODO : Tag Container에 다시 태그 집어넣기 */
 
-                let reAddBtn = document.createElement('button');
+                /* tagContainer에 다시 추가 */
+                let reAddTag = document.createElement('button');
 
-                reAddBtn.setAttribute("id", index);
-                reAddBtn.setAttribute("class", "big-tag-box in-tag-container");
-                reAddBtn.setAttribute("style", tagColor);
-                reAddBtn.innerText = tagText;
+                reAddTag.setAttribute("id", index);
+                reAddTag.setAttribute("class", "big-tag-box in-tag-container");
+                reAddTag.setAttribute("style", tagColor);
+                reAddTag.innerText = tagText;
 
-                tagContainer.appendChild(reAddBtn);
+                tagContainer.appendChild(reAddTag);
 
             });
 
+            /* 등록 버튼 이벤트 처리 */
             $(document).on("click", "#registerBtn", function (){
                 console.log("register!!!");
 
+                var registerTitle = document.getElementById("registerTitle").value;
                 var tags = document.getElementsByClassName("tag-header");
                 var contents = document.getElementsByClassName("content-textarea")
+                var regex = /[^0-9]/g;  // id에서 tno만 추출하기 위한 정규 표현식
 
-                var regex = /[^0-9]/g;
+                /* diaryDTO */
+                var diaryDTO = new Object();
 
-                for(var tno of tags){
+                diaryDTO.title = registerTitle;
+                console.log("diaryDTO : " + diaryDTO);
 
-                    var result = tno.getAttribute("id").replace(regex, "");
-                    console.log(result);
-
+                /* 제목이 null일 경우 예외처리 */
+                if(!registerTitle){
+                    alert("제목을 입력하세요");
+                    return ;
                 }
 
-                for(var content of contents){
+                var writeUpDTOList = new Array();
 
-                    var result = content.value;
-                    console.log(result);
+                for(var i=0; i<tags.length; ++i){
 
+                    /* writeUpDTOList */
+                    var writeUpDTO = new Object() ;
+
+                    var tno = tags[i].getAttribute("id").replace(regex, "");
+                    var content = contents[i].value;
+
+                    console.log("tag : " + tno);
+                    console.log("content of tag : " + content);
+
+                    /* tagDTO */
+                    var tagDTO = new Object();
+
+                    tagDTO.tno = tno;
+                    writeUpDTO.tagDTO = tagDTO;
+                    writeUpDTO.content = content;
+
+                    writeUpDTOList.push(writeUpDTO);
                 }
+
+                diaryDTO.writeUpDTOList = writeUpDTOList;
+
+                console.log(diaryDTO);
+                console.log("stringified diaryDTO : " + JSON.stringify(diaryDTO));
+
+
+
+                $.ajax({
+                    anyne:true,
+                    type:'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(diaryDTO),
+                    url:"/diarys/register",
+                    success: function (data){
+                        alert("등록이 완료되었습니다");
+                        location.href="/diarys/list";
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("ERROR : " + textStatus + " : " + errorThrown);
+                    }
+                });
 
             })
 

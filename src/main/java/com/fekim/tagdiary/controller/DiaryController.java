@@ -16,10 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -40,14 +37,14 @@ public class DiaryController {
         model.addAttribute("tagDTOList",tagService.getList());
     }
 
-    /* 등록은 DiaryDTO를 파라미터로 보내야 합니다
-    * 이는 json으로 처리하기 위해
-    * REST Controller를 이용할 것이기 때문에 이 컨트롤러는 주석처리합니다.
-    *  */
-    /*@PostMapping("/register")
+    @PostMapping("/register")
     public String registerPost(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
-                               DiaryDTO diaryDTO,
+                               @RequestBody DiaryDTO diaryDTO,
                                RedirectAttributes redirectAttributes){
+        log.info("==================register post");
+        log.info("==================diaryDTO : " + diaryDTO);
+        log.info("==================auth info : " + authMemberDTO);
+
 
         diaryDTO.setWriterId(authMemberDTO.getId());
 
@@ -57,7 +54,7 @@ public class DiaryController {
 
         return "redirect:/diarys/list";
 
-    }*/
+    }
 
     @GetMapping("/list")
     public void list(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
