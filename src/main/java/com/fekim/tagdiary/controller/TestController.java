@@ -9,26 +9,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
-@RequestMapping("/blog-post-template/")
+@RequestMapping("/")
 public class TestController {
 
-    @GetMapping("/index")
+    @GetMapping("/blog-post-template/index")
     public void gotoIndex(){
 
     }
 
-    @GetMapping("/contact")
+    @GetMapping("/blog-post-template/contact")
     public void gotoContact(){
 
     }
 
-    @GetMapping("/about")
+    @GetMapping("/blog-post-template/about")
     public void gotoAbout(){
 
     }
 
-    @GetMapping("/post")
+    @GetMapping("/blog-post-template/post")
     public void gotoPost(){
+
+    }
+
+    @GetMapping("/auth/signIn")
+    public void gotoSignIn(){
+
+    }
+
+    @GetMapping("/signInModal/index")
+    public void sogoSignInModal(){
 
     }
 

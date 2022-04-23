@@ -5,8 +5,10 @@ import com.fekim.tagdiary.security.dto.AuthMemberDTO;
 import com.fekim.tagdiary.diary.dto.PageRequestDTO;
 import com.fekim.tagdiary.diary.dto.PageResultDTO;
 import com.fekim.tagdiary.diary.service.DiaryService;
+import com.fekim.tagdiary.tag.domain.Tag;
 import com.fekim.tagdiary.tag.dto.TagDTO;
 import com.fekim.tagdiary.tag.service.TagService;
+import com.fekim.tagdiary.writeup.domain.WriteUp;
 import com.fekim.tagdiary.writeup.dto.WriteUpDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -80,6 +84,7 @@ public class DiaryController {
         
         DiaryDTO diaryDTO = diaryService.read(dno);
 
+        /* 다른 회원의 게시글을 조회하려 접근하면, list로 redirect시킵니다. */
         if(!diaryDTO.getWriterId().equals(authMemberDTO.getId())) {
             return "redirect:/diarys/list";
         } else {
@@ -98,19 +103,40 @@ public class DiaryController {
         log.info("dno : "+dno);
 
         DiaryDTO diaryDTO = diaryService.read(dno);
+        List<TagDTO> tagDTOList = tagService.getList();
+        log.info("===============listing completed=============");
 
+        /* 중복 태그 지우기 */
+        for(WriteUpDTO writeUpDTO : diaryDTO.getWriteUpDTOList()){
+            int i = 0;
+            for(TagDTO tagDTO : tagDTOList){
+                if(writeUpDTO.getTagDTO().getTno().equals(tagDTO.getTno())){
+                    log.info("============i : "+i);
+                    tagDTOList.remove(i);
+                    break;
+                } else {
+                    i++;
+                }
+            }
+        }
+
+        /* 다른 회원의 게시글을 수정하려 접근하면, list로 redirect시킵니다. */
         if(!diaryDTO.getWriterId().equals(authMemberDTO.getId())) {
             return "redirect:/diarys/list";
         } else {
+            model.addAttribute("tags", tagDTOList);
             model.addAttribute("diaryDTO", diaryDTO);
             return "/diarys/modify";
         }
     }
 
     @PostMapping("/modify")
-    public String modify(DiaryDTO diaryDTO,
+    public String modify(@AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                         @RequestBody DiaryDTO diaryDTO,
                          @ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO,
                          RedirectAttributes redirectAttributes){
+
+        diaryDTO.setWriterId(authMemberDTO.getId());
 
         diaryService.modify(diaryDTO);
 

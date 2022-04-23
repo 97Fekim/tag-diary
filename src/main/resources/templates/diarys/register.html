@@ -57,12 +57,11 @@
                 </div>
 
                 <div class="col-lg-8">
-                    <div class="card-header">글 등록</div>
+                    <h1 class="fw-bolder mb-1">
+                        <input id="registerTitle" placeholder="제목을 입력하세요" style="border: 0; outline: 0">
+                    </h1>
                     <div class="card-body">
                         <div class="row">
-                            <h1 class="fw-bolder mb-1">
-                                <input id="registerTitle" placeholder="제목을 입력하세요" style="border: 0; outline: 0">
-                            </h1>
 
                             <div id="diaryContainer" class="post-preview tag-container">
 
@@ -89,7 +88,6 @@
                 addHeader.setAttribute("id", "header-id-" + this.getAttribute("id"));
                 addHeader.setAttribute("class", "card-header tag-header");
                 addHeader.setAttribute("style", this.getAttribute('style'));
-                addHeader.setAttribute("ros", 3);
 
                 /* 제거 버튼 만들기 */
                 let removeBtn = document.createElement('button');
@@ -102,7 +100,7 @@
 
                 /* text 적힐 곳 만들기 */
                 let addTextarea = document.createElement('textarea');
-                addTextarea.setAttribute("style", "border:0; ouline:0")
+                addTextarea.setAttribute("style", "border:0; ouline:0; width:100%; height:10em; resize:none");
                 addTextarea.setAttribute("id", "textarea-id-" + this.getAttribute("id"));
                 addTextarea.setAttribute("class", "form-control content-textarea");
                 addTextarea.setAttribute("placeholder", "내용을 입력하세요");
@@ -168,12 +166,6 @@
                 diaryDTO.title = registerTitle;
                 console.log("diaryDTO : " + diaryDTO);
 
-                /* 제목이 null일 경우 예외처리 */
-                if(!registerTitle){
-                    alert("제목을 입력하세요");
-                    return ;
-                }
-
                 var writeUpDTOList = new Array();
 
                 for(var i=0; i<tags.length; ++i){
@@ -195,6 +187,17 @@
                     writeUpDTO.content = content;
 
                     writeUpDTOList.push(writeUpDTO);
+                }
+
+                /* null일 경우 예외처리 */
+                if(!registerTitle){
+                    alert("제목을 입력하세요");
+                    return ;
+                }
+
+                if(writeUpDTOList.length === 0){
+                    alert("태그를 추가하세요");
+                    return ;
                 }
 
                 diaryDTO.writeUpDTOList = writeUpDTOList;

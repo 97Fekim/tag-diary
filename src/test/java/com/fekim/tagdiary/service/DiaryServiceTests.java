@@ -85,21 +85,21 @@ public class DiaryServiceTests {
 
         writeUpDTOList.add(WriteUpDTO.builder()
                 .content("수정 테스트 내용1")
-                .tagDTO(TagDTO.builder().tno(5L).name("감격").type("emotion").build())
+                .tagDTO(TagDTO.builder().tno(5L).build())
                 .build());
 
         writeUpDTOList.add(WriteUpDTO.builder()
                 .content("수정 테스트 내용2")
-                .tagDTO(TagDTO.builder().tno(6L).name("감사").type("emotion").build())
+                .tagDTO(TagDTO.builder().tno(6L).build())
                 .build());
 
         writeUpDTOList.add(WriteUpDTO.builder()
                 .content("수정 테스트 내용3")
-                .tagDTO(TagDTO.builder().tno(12L).name("기대").type("emotion").build())
+                .tagDTO(TagDTO.builder().tno(12L).build())
                 .build());
 
         DiaryDTO diaryDTO = DiaryDTO.builder()
-                .dno(199L)
+                .dno(150L)
                 .title("수정 테스트 제목1")
                 .writerId(1L)
                 .writeUpDTOList(writeUpDTOList)
