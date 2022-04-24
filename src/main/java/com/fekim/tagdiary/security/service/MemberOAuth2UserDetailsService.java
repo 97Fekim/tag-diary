@@ -46,9 +46,9 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         String email = null;
 
-        if(clientName.equals("Google")) {    // 구글,네이버 을 사용하는 경우
+        if(clientName.equals("Google")) {    // 구글
             email = oAuth2User.getAttribute("email");
-        } else if(clientName.equals("Naver")){
+        } else if(clientName.equals("Naver")){  // 네이버 이용시, 이메일을 꺼내려면 response라는 Map에서 한번더 꺼내야 한다
             Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
             email = (String) response.get("email");
         }
