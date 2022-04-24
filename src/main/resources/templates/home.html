@@ -164,7 +164,7 @@
         </div>
     </footer>
 
-    <!-- Modal Form -->
+    <!-- signIn Modal -->
     <div class="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -190,27 +190,66 @@
                         <div class="mb-3">
                             <input class="form-check-input" type="checkbox" value="" id="remember">
                             <label class="form-check-label" for="remember">로그인 유지</label>
-                            <a href="#" class="float-end">비밀번호 찾기</a>
+                            <a href="#" id="findPasswordBtn" class="float-end">비밀번호 찾기</a>
                         </div>
                         <button id="loginBtn" type="button" class="btn btn-primary btn-lg mx-auto w-100">로그인</button>
                     </div>
                     <div class="modal-footer pt-4">
 
                         <button type="button" style="border: 0;outline: 0;margin: auto; background-color: white">
-                            <a href="/oauth2/authorization/google">
-                                <img src="/assets/img/googleBtnBlue.png" height ="55" width="260" />
+                            <a href="/oauth2/authorization/naver">
+                                <img src="/assets/img/naverBtn.png" height ="55" width="220" />
                             </a>
                         </button>
 
                         <button type="button" style="border: 0;outline: 0;margin: auto; background-color: white">
-                            <a href="/oauth2/authorization/naver">
-                                <img src="/assets/img/naverBtn.png" height ="55" width="260" />
+                            <a href="/oauth2/authorization/google">
+                                <img src="/assets/img/googleBtnBlue.png" height ="55" width="220" />
                             </a>
                         </button>
 
                     </div>
                 </form>
-                <p class="text-center">아직 아이디가 없으세요? <a href="#">회원가입</a></p>
+                <p class="text-center">아직 아이디가 없으세요?
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#ModalFormSignUp">회원가입</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- signUp Modal(demo) -->
+    <div class="modal fade" id="ModalFormSignUp" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- signUp Form -->
+                <form action="/signUp" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tag Diary</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- user Id -->
+                        <div class="mb-3">
+                            <input type="text" name="username" class="form-control" id="UsernameSignUp" placeholder="아이디">
+                        </div>
+
+                        <!-- user password -->
+                        <div class="mb-3">
+                            <input type="password" name="password" class="form-control" id="PasswordSignUp" placeholder="비밀번호">
+                        </div>
+
+                        <!-- user Id -->
+                        <div class="mb-3">
+                            <input type="text" name="email" class="form-control" id="EmailSignUp" placeholder="이메일">
+                        </div>
+
+                        <button id="signUpBtn" type="button" class="btn btn-primary btn-lg mx-auto w-100">회원가입</button>
+                    </div>
+                    <div class="modal-footer pt-4">
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -257,6 +296,14 @@
                     alert("로그인 정보를 확인해주세요");
                 }
             });
+        })
+
+        $(document).on("click", "#signUpBtn", function(){
+            alert("서비스에 불편을 드려 죄송합니다\n소셜 로그인을 이용해주시기 바랍니다");
+        })
+
+        $(document).on("click", "#findPasswordBtn", function(){
+            alert("서비스에 불편을 드려 죄송합니다\n소셜 로그인을 이용해주시기 바랍니다");
         })
 
     </script>
