@@ -43,11 +43,14 @@ public class MemberOAuth2UserDetailsService extends DefaultOAuth2UserService {
         oAuth2User.getAttributes().forEach((k,v) -> {
             log.info(k + " : " + v);
         });
-        
+
         String email = null;
-        
-        if(clientName.equals("Google")){    // 구글을 사용하는 경우
+
+        if(clientName.equals("Google")) {    // 구글,네이버 을 사용하는 경우
             email = oAuth2User.getAttribute("email");
+        } else if(clientName.equals("Naver")){
+            Map<String, Object> response = (Map<String, Object>) oAuth2User.getAttributes().get("response");
+            email = (String) response.get("email");
         }
 
         log.info("EMAIL : " + email);
