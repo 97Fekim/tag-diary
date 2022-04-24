@@ -76,10 +76,10 @@
                     </li>
 
                     <!-- 로그인 x -->
-                    <li class="nav-item"
+                    <!--<li class="nav-item"
                         th:if="${!isLogined}">
                         <a class="nav-link px-lg-3 py-3 py-lg-4 unAuthA" href="/signUp">회원가입</a>
-                    </li>
+                    </li>-->
 
                     <!-- 로그인 o -->
                     <li class="nav-item" th:if="${isLogined}">
@@ -87,9 +87,9 @@
                     </li>
 
                     <!-- 로그인 o -->
-                    <li th:if="${isLogined}" class="nav-item">
+                    <!--<li th:if="${isLogined}" class="nav-item">
                         <a class="nav-link px-lg-3 py-3 py-lg-4" href="myInfo">내 정보</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -192,16 +192,25 @@
                             <label class="form-check-label" for="remember">로그인 유지</label>
                             <a href="#" class="float-end">비밀번호 찾기</a>
                         </div>
-                    </div>
-                    <div>
-                        <a href="/oauth2/authorization/naver">네이버 로그인</a>
-                        <a href="/oauth2/authorization/google">구글 로그인</a>
+                        <button id="loginBtn" type="button" class="btn btn-primary btn-lg mx-auto w-100">로그인</button>
                     </div>
                     <div class="modal-footer pt-4">
-                        <button type="button submit" class="btn btn-primary btn-lg disabled mx-auto w-100">로그인</button>
+
+                        <button type="button" style="border: 0;outline: 0;margin: auto; background-color: white">
+                            <a href="/oauth2/authorization/google">
+                                <img src="/assets/img/googleBtnBlue.png" height ="55" width="260" />
+                            </a>
+                        </button>
+
+                        <button type="button" style="border: 0;outline: 0;margin: auto; background-color: white">
+                            <a href="/oauth2/authorization/naver">
+                                <img src="/assets/img/naverBtn.png" height ="55" width="260" />
+                            </a>
+                        </button>
+
                     </div>
-                    <p class="text-center">아직 아이디가 없으세요? <a href="#">회원가입</a></p>
                 </form>
+                <p class="text-center">아직 아이디가 없으세요? <a href="#">회원가입</a></p>
             </div>
         </div>
     </div>
@@ -219,8 +228,35 @@
 
         console.log(flag);
 
+        /* 로그인전 컨텐츠 제공 방지 */
         $(document).on("click",".unAuthA", function(e){
             e.preventDefault();
+        })
+
+        /* 로그인 버튼 처리 */
+        $(document).on("click", "#loginBtn", function(){
+            var userInfo = new Object();
+
+            var username = document.getElementById("Username").value;
+            var password = document.getElementById("Password").value;
+
+            userInfo.username = username;
+            userInfo.password = password;
+
+            console.log(userInfo);
+
+            $.ajax({
+                type:'POST',
+                dataType: 'text',
+                data: 'username='+username + '&password='+password,
+                url:"/login",
+                success: function (data){
+                    location.href="/";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("로그인 정보를 확인해주세요");
+                }
+            });
         })
 
     </script>

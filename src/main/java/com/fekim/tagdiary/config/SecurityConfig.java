@@ -1,5 +1,6 @@
 package com.fekim.tagdiary.config;
 
+import com.fekim.tagdiary.security.handler.CustomLoginFailureHandler;
 import com.fekim.tagdiary.security.handler.CustomLoginSuccessHandler;
 import com.fekim.tagdiary.security.handler.CustomLogoutSuccessHandler;
 import lombok.extern.log4j.Log4j2;
@@ -33,22 +34,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/diarys/**/*").hasRole("USER");
 
 
-        http.formLogin().successHandler(successHandler());   // 인가/인증에 문제시 로그인 화면, .loginPage()나 .loginProcessUrl() 을 이용해서 커스텀 로그인 페이지 적용 가능
+        http.formLogin().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler());   // 인가/인증에 문제시 로그인 화면, .loginPage()나 .loginProcessUrl() 을 이용해서 커스텀 로그인 페이지 적용 가능
 
         http.csrf().disable();
-        http.oauth2Login().successHandler(successHandler());
+        http.oauth2Login().successHandler(loginSuccessHandler());
         http.logout().logoutSuccessHandler(logoutSuccessHandler());
         http.rememberMe().tokenValiditySeconds(60 * 60 * 24 * 7).userDetailsService(userDetailsService);
     }
 
     @Bean
-    public CustomLoginSuccessHandler successHandler(){
+    public CustomLoginSuccessHandler loginSuccessHandler(){
+
         return new CustomLoginSuccessHandler();
     }
 
     @Bean
     public CustomLogoutSuccessHandler logoutSuccessHandler() {
         return new CustomLogoutSuccessHandler();
+    }
+
+    @Bean
+    public CustomLoginFailureHandler loginFailureHandler(){
+        return new CustomLoginFailureHandler();
     }
 
 }
