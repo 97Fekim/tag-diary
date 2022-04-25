@@ -12,36 +12,41 @@ import org.springframework.test.context.TestPropertySource;
 @SpringBootTest
 public class MemberTests {
 
-    @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Test
-    public void addRole(){
-
-        Member member1 = Member.builder()
-                .name("Romeo")
-                .password(passwordEncoder.encode("1234"))
-                .email("Romeo@gmail.com")
-                .fromSocial(false)
-                .build();
-
-        Member member2 = Member.builder()
-                .name("Juliet")
-                .password(passwordEncoder.encode("1234"))
-                .email("Juliet@gmail.com")
-                .fromSocial(false)
-                .build();
-
-        member1.addMemberRole(MemberRole.USER);
-        member2.addMemberRole(MemberRole.USER);
-
-        memberRepository.save(member1);
-        memberRepository.save(member2);
+    public void helloWorld(){
 
     }
+
+//    @Autowired
+//    private MemberRepository memberRepository;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
+//
+//    @Test
+//    public void addRole(){
+//
+//        Member member1 = Member.builder()
+//                .name("Romeo")
+//                .password(passwordEncoder.encode("1234"))
+//                .email("Romeo@gmail.com")
+//                .fromSocial(false)
+//                .build();
+//
+//        Member member2 = Member.builder()
+//                .name("Juliet")
+//                .password(passwordEncoder.encode("1234"))
+//                .email("Juliet@gmail.com")
+//                .fromSocial(false)
+//                .build();
+//
+//        member1.addMemberRole(MemberRole.USER);
+//        member2.addMemberRole(MemberRole.USER);
+//
+//        memberRepository.save(member1);
+//        memberRepository.save(member2);
+//
+//    }
 
 //    @Test
 //    public void testJoin(){
