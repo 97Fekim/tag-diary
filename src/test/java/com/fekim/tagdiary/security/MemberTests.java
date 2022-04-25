@@ -1,48 +1,48 @@
-//package com.fekim.tagdiary.security;
-//
-//import com.fekim.tagdiary.member.domain.Member;
-//import com.fekim.tagdiary.member.domain.MemberRepository;
-//import com.fekim.tagdiary.member.domain.MemberRole;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.test.context.TestPropertySource;
-//
-//@SpringBootTest
-//public class MemberTests {
-//
-//    @Autowired
-//    private MemberRepository memberRepository;
-//
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-//
-//    @Test
-//    public void addRole(){
-//
-//        Member member1 = Member.builder()
-//                .name("Romeo")
-//                .password(passwordEncoder.encode("1234"))
-//                .email("Romeo@gmail.com")
-//                .fromSocial(false)
-//                .build();
-//
-//        Member member2 = Member.builder()
-//                .name("Juliet")
-//                .password(passwordEncoder.encode("1234"))
-//                .email("Juliet@gmail.com")
-//                .fromSocial(false)
-//                .build();
-//
-//        member1.addMemberRole(MemberRole.USER);
-//        member2.addMemberRole(MemberRole.USER);
-//
-//        memberRepository.save(member1);
-//        memberRepository.save(member2);
-//
-//    }
-//
+package com.fekim.tagdiary.security;
+
+import com.fekim.tagdiary.member.domain.Member;
+import com.fekim.tagdiary.member.domain.MemberRepository;
+import com.fekim.tagdiary.member.domain.MemberRole;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.TestPropertySource;
+
+@SpringBootTest
+public class MemberTests {
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Test
+    public void addRole(){
+
+        Member member1 = Member.builder()
+                .name("Romeo")
+                .password(passwordEncoder.encode("1234"))
+                .email("Romeo@gmail.com")
+                .fromSocial(false)
+                .build();
+
+        Member member2 = Member.builder()
+                .name("Juliet")
+                .password(passwordEncoder.encode("1234"))
+                .email("Juliet@gmail.com")
+                .fromSocial(false)
+                .build();
+
+        member1.addMemberRole(MemberRole.USER);
+        member2.addMemberRole(MemberRole.USER);
+
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+    }
+
 //    @Test
 //    public void testJoin(){
 //        Member member = Member.builder()
@@ -54,5 +54,5 @@
 //
 //        memberRepository.save(member);
 //    }
-//
-//}
+
+}
