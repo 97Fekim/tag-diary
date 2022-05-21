@@ -1,0 +1,3 @@
+# tag-diary
+
+커밋 내역에 Oauth2 인증 키 관련된 내용이 올라가버려서, [tag-diary2 레포지토리](https://github.com/97Fekim/tag-diary2)로 이전합니다...
